@@ -4,14 +4,13 @@
 #include <string.h>
 
 int main(int argc, char **argv){
+
+}
+
+
+/*char* decToHex(int num){
     char *hexa;
-    hexa = decToHex(255);
-    printf("Valor hexadecimal: %s\n", hexa);
-}
-
-
-char* decToHex(int num){
-    char hexa[5];
-    sprintf(hexa, "%x", num);
+    hexa = malloc(sizeof(char)*5);
+    sprintf(hexa, "%s", num);
     return hexa;
-}
+}*/

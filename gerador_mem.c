@@ -55,7 +55,10 @@ int escrita_arqMem(){ // converter pra hexadecimal       (deve também receber a
             fprintf(arq, "%x: ", i); // %x faz um print diretamente em hexadecimal
             j=0;
         }else if(j==4){
-            fprintf(arq, "\n%x: ", i);  // %x faz um print diretamente em hexadecimal
+            if(i<=16)
+                fprintf(arq, "\n %x: ", i);  // faz com que os valores fiquei exatamente na mesma linha (igual no arquivo original)
+            else
+                fprintf(arq, "\n%x: ", i);  // %x faz um print diretamente em hexadecimal
             j=0;
         }else
             fprintf(arq, " ");

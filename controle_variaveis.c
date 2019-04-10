@@ -10,25 +10,11 @@ typedef struct _mem mem;
 
 char *decimal_to_binary(int n);
 char *busca_variavel(char chave[]);
+int adicionar_variavel(char chave[]);
 
 mem *memoria;
 int tamMemoria = 0;          // a posição no vetor 'memoria' também é o endereço de memoria da memória física
                             // a struct serve para salvar a chave para cada posição
-int main(){
-    char *end;
-    end = busca_variavel("hue1");
-    end = busca_variavel("asd");
-    printf("Endereco para asd: %s\n", end);
-    end = busca_variavel("as");
-    end = busca_variavel("asd");
-
-    printf("-------------------\n\n");
-    int i;
-    for(i=0; i<tamMemoria; i++){
-        printf("Chave: %s\tEndereco: %s\n", memoria[i].chave_acesso, busca_variavel(memoria[i].chave_acesso));
-    }
-}
-
 int adicionar_variavel(char chave[]){
     char *endereco;
     if(tamMemoria == 0){

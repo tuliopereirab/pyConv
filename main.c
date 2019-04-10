@@ -28,8 +28,7 @@ void retornar_matriz();
 
 
 int main(int argc, char **argv){
-    inicializa_matriz();
-    adicionar_valor("1111000011110000", 255);
-    retornar_matriz();
+    inicializa_matriz();       // criação da matriz zerada
+    aguardar_entrada();
     //inicio_geradorMem("segundoArq", algoritmo);
 }

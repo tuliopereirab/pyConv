@@ -22,13 +22,13 @@ struct codigo{
 FILE *arq;
 struct codigo **algoritmo;
 
- int main(){
-     int status = inicializa_matriz();
-     adicionar_valor("0001101100011011", 15);
-     adicionar_valor("0000111100001111", 255);
-     adicionar_valor("1111111111111111", 0);
-     inicio_geradorMem("terceiro");
- }
+ // int main(){
+ //     int status = inicializa_matriz();
+ //     adicionar_valor("0001101100011011", 15);
+ //     adicionar_valor("0000111100001111", 255);
+ //     adicionar_valor("1111111111111111", 0);
+ //     inicio_geradorMem("terceiro");
+ // }
 
 int inicializa_matriz(){
     int i, j;
@@ -65,6 +65,7 @@ int adicionar_valor(char palavra[], int posicao){
     if(algoritmo[posI][posJ].status == 1) return 0; // codigo indicando que já existe valor escrito na posição
     algoritmo[posI][posJ].status = 1;
     strcpy(algoritmo[posI][posJ].palavra, palavra);
+    return 1;
 }
 
 // ------------------------------------------------------------------------------
@@ -80,7 +81,8 @@ int inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da st
         return 0;
     status = escrita_arqMem();
     fclose(arq);
-    return status;
+    exit(EXIT_SUCCESS);
+    //return status;
 }
 
 int abrirArq(char nomeArq[]){

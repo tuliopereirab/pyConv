@@ -2,7 +2,9 @@
 #include "main.c"
 //#include "hexToDec.c"
 #include "gerenciador_matriz.c"
-#include "gerador_mem.c"
+#include "conversor.c"
+#include "controle_variaveis.c"
+#include "entrada_codigoAss.c"
 
 #define N_POSICOES_MEM 256
 #define MAX_CONJUNTOS 64
@@ -12,7 +14,7 @@
 
 // ------------------------------
 // gerador_mem.c
-int inicio_geradorMem(struct codigo *algo, char nomeArq[]);
+int inicio_geradorMem(char nomeArq[]);
 int abrirArq(char nomeArq[]);
 int escrita_arqMem();
 // ------------------------------
@@ -23,4 +25,27 @@ int inicializa_matriz();
 void printar_matriz();
 int adicionar_valor(char palavra[], int posicao);
 void retornar_matriz();
+// ------------------------------
+
+
+// ------------------------------
+// controle_variaveis.c
+char *decimal_to_binary(int n);
+char *busca_variavel(char chave[]);
+int adicionar_variavel(char chave[]);
+//------------------------------
+
+// ------------------------------
+// conversor.c
+void inicio_conversor(int posMemoria, char comando[], char argumento[]);
+char* montar_comando(char comando_bin[], char arg_bin[], int usaArg);
+char *verCodigo_comando(char comando[]);
+char* verComparacao(int val);
+//------------------------------
+
+// ------------------------------
+// entrada_codigoAss.c
+int check_entrada(char entrada[]);
+void aguardar_entrada();
+void error_message(int id);
 // ------------------------------

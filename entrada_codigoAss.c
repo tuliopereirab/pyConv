@@ -7,20 +7,28 @@ int check_entrada(char entrada[]);
 void aguardar_entrada();
 void error_message(int id);
 
-int main(){
-    aguardar_entrada();
-}
+void inicio_conversor(int posMemoria, char comando[], char argumento[]);
+// int main(){
+//     aguardar_entrada();
+// }
 
 void aguardar_entrada(){
     int status=0, valor_retorno;
+    char* arqName;
+    arqName = (char*)malloc(sizeof(char)*20);
     char entrada[100];
     printf("Inicializado, aguardando entradas: \n");
     while(status!=1){
         printf("-> ");
         gets(entrada);
-        if(((strcmp(entrada, "quit")) == 0) || ((strcmp(entrada, "Quit")) == 0) || ((strcmp(entrada, "QUIT")) == 0))
+        __fpurge(stdin);
+        if(((strcmp(entrada, "quit")) == 0) || ((strcmp(entrada, "Quit")) == 0) || ((strcmp(entrada, "QUIT")) == 0)){
             status = 1;
-        else
+            printf("Nome do arquivo: ");
+            gets(arqName);
+            __fpurge(stdin);
+            inicio_geradorMem(arqName);
+        }else
             valor_retorno = check_entrada(entrada);
         if((status != 1) && (valor_retorno != 0)) // ocorreu um erro e o comando não é quit
             error_message(valor_retorno);
@@ -87,10 +95,8 @@ int check_entrada(char entrada[]){
     if(controle == 1)
         if((check_arg = check_argumento(comando)) == 1) // comando não precisa argumento
             return 12;
-    // printf("Posição: %i\nComando: %s\n", posMemoria, comando);
-    // if(controle == 2){
-    //     printf("Argumento: %s\n", argumento);
-    // }
+
+    inicio_conversor(posMemoria, comando, argumento);
 
 
 }

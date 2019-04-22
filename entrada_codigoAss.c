@@ -38,12 +38,13 @@ void aguardar_entrada(){
                 linha = lineTemp;
             else
                 printf("Valor superior ao tamanho ta memoria.\n");
-        }else{
+        }else
             valor_retorno = check_entrada(linha, entrada);
-            linha++;
-        }
+        
         if((status != 1) && (valor_retorno != 0)) // ocorreu um erro e o comando não é quit
             error_message(valor_retorno);
+        else
+            linha++;
     }
     printf("Entrada finalizada.\n");
 }

@@ -45,7 +45,7 @@ char* verComparacao(int val);
 
 // ------------------------------
 // entrada_codigoAss.c
-int check_entrada(char entrada[]);
+int check_entrada(int posMemoria, char entrada[]);
 void aguardar_entrada();
 void error_message(int id);
 // ------------------------------

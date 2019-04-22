@@ -3,7 +3,9 @@
 #include <math.h>
 #include <string.h>
 
-int check_entrada(char entrada[]);
+#define MEMORY_SIZE 65536       // 16 bits
+
+int check_entrada(int posMemoria, char entrada[]);
 void aguardar_entrada();
 void error_message(int id);
 
@@ -13,13 +15,13 @@ void inicio_conversor(int posMemoria, char comando[], char argumento[]);
 // }
 
 void aguardar_entrada(){
-    int status=0, valor_retorno;
+    int status=0, valor_retorno, linha=0, lineTemp;
     char* arqName;
     arqName = (char*)malloc(sizeof(char)*20);
     char entrada[100];
     printf("Inicializado, aguardando entradas: \n");
     while(status!=1){
-        printf("-> ");
+        printf("%i-> ", linha);
         gets(entrada);
         __fpurge(stdin);
         if(((strcmp(entrada, "quit")) == 0) || ((strcmp(entrada, "Quit")) == 0) || ((strcmp(entrada, "QUIT")) == 0)){
@@ -28,8 +30,18 @@ void aguardar_entrada(){
             gets(arqName);
             __fpurge(stdin);
             inicio_geradorMem(arqName);
-        }else
-            valor_retorno = check_entrada(entrada);
+        }if(((strcmp(entrada, "line")) == 0) || ((strcmp(entrada, "Line")) == 0) || ((strcmp(entrada, "LINE")) == 0)){
+            printf("Linha: ");
+            scanf("%i", &lineTemp);
+            __fpurge(stdin);
+            if(lineTemp < MEMORY_SIZE-1)
+                linha = lineTemp;
+            else
+                printf("Valor superior ao tamanho ta memoria.\n");
+        }else{
+            valor_retorno = check_entrada(linha, entrada);
+            linha++;
+        }
         if((status != 1) && (valor_retorno != 0)) // ocorreu um erro e o comando não é quit
             error_message(valor_retorno);
     }
@@ -39,8 +51,8 @@ void aguardar_entrada(){
 void error_message(int id){
     switch(id){
         case 10:     // erro de formatação
-            printf("Utilize o formato: [num_linha] [comando] [valor_entrada (se necessário)]\n");
-            printf("Exemplo: 10 LOAD_CONST 15\n\n");
+            printf("Utilize o formato: [comando] [valor_entrada (se necessário)]\n");
+            printf("Exemplo: LOAD_CONST 15\n\n");
             break;
         case 11:     // posicao de memória invalido
             printf("O valor de 'num_linha' deve estar entre 0 e 255.\n");
@@ -53,23 +65,23 @@ void error_message(int id){
     }
 }
 
-int check_entrada(char entrada[]){
+int check_entrada(int posMemoria, char entrada[]){
     int i, j, controle, check_arg, check_comValido, tamEntrada = strlen(entrada);
-    int posMemoria;
     char posMem_char[5], comando[20], argumento[20];
 
-    controle = 0;
+    controle = 1;
     j=0;
     for(i=0; i<tamEntrada; i++){
-        if(controle == 0){     // salvar a posicao da memória
-            if(entrada[i] == ' '){
-                posMem_char[j] = '\0';
-                j = 0;
-                controle++;
-                posMemoria = atoi(posMem_char);
-            }else
-                posMem_char[j++] = entrada[i];
-        }else if(controle == 1){    // salvar o comando
+        // if(controle == 0){     // salvar a posicao da memória
+        //     if(entrada[i] == ' '){
+        //         posMem_char[j] = '\0';
+        //         j = 0;
+        //         controle++;
+        //         posMemoria = atoi(posMem_char);
+        //     }else
+        //         posMem_char[j++] = entrada[i];
+        // }else
+        if(controle == 1){    // salvar o comando
             if(entrada[i] == ' '){
                 comando[j] = '\0';
                 j=0;

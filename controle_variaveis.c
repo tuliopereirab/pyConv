@@ -19,6 +19,7 @@ int adicionar_variavel(char chave[]);
 mem *memoria;
 int tamMemoria = 0;          // a posição no vetor 'memoria' também é o endereço de memoria da memória física
                             // a struct serve para salvar a chave para cada posição
+
 int adicionar_variavel(char chave[]){
     char *endereco;
     if(tamMemoria == 0){

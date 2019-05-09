@@ -3,8 +3,8 @@
 #include <math.h>
 #include <string.h>
 
-#define N_POSICOES_MEM 256
-#define MAX_CONJUNTOS 64
+#define N_POSICOES_MEM 4096
+#define MAX_CONJUNTOS 1024
 #define PALAVRAS_CONJUNTO 4
 #define LENGTH_PALAVRA 16
 

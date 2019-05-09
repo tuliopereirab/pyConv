@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define MEMORY_SIZE 4096
-#define MAX_CONJUNTOS 1024
+#define MAX_CONJUNTOS_MATRIZ 1024
 #define PALAVRAS_CONJUNTO 4
 #define LENGTH_PALAVRA 16
 
@@ -15,6 +15,7 @@ int adicionar_valor(char palavra[], int posicao);
 void retornar_matriz();
 int abrirArq(char nomeArq[]);
 int escrita_arqMem();
+void inicio_geradorMem(char nomeArq[]);
 //---------------------------------------
 
 struct codigo{
@@ -35,8 +36,8 @@ struct codigo **algoritmo;
 
 int inicializa_matriz(){
     int i, j;
-    algoritmo = (struct codigo**)malloc(sizeof(struct codigo*) * MAX_CONJUNTOS);
-    for(i=0; i<MAX_CONJUNTOS; i++){
+    algoritmo = (struct codigo**)malloc(sizeof(struct codigo*) * MAX_CONJUNTOS_MATRIZ);
+    for(i=0; i<MAX_CONJUNTOS_MATRIZ; i++){
         algoritmo[i] = (struct codigo*)malloc(sizeof(struct codigo) * PALAVRAS_CONJUNTO);
         for(j=0; j<PALAVRAS_CONJUNTO; j++){
             algoritmo[i][j].palavra = (char*)malloc(sizeof(char)*LENGTH_PALAVRA);
@@ -50,7 +51,7 @@ int inicializa_matriz(){
 
 void printar_matriz(){
     int i, j;
-    for(i=0; i<MAX_CONJUNTOS; i++){
+    for(i=0; i<MAX_CONJUNTOS_MATRIZ; i++){
         for(j=0; j<PALAVRAS_CONJUNTO; j++){
             printf("%s ", algoritmo[i][j].palavra);
         }
@@ -71,6 +72,7 @@ int adicionar_valor(char palavra[], int posicao){
     return 1;
 }
 
+
 // ------------------------------------------------------------------------------
 //       ||||           ||||          ||||
 //     ||    ||         ||  ||      ||    ||
@@ -78,7 +80,7 @@ int adicionar_valor(char palavra[], int posicao){
 // ||            ||     ||  ||        ||||||||
 // ------------------------------------------------------------------------------
 
-int inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da struct
+void inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da struct
     int status;
     if((status = abrirArq(nomeArq)) == 0)
         return 0;
@@ -95,28 +97,26 @@ int abrirArq(char nomeArq[]){
     strcpy(nomeCompleto, nomeArq);
     strcat(nomeCompleto, ".mem");
     if((arq = fopen(nomeCompleto, "w+")) != NULL)
-        return 1;
+        return 1;      // abriu o arquivo
     else
-        return 0;
+        return 0;      // erro ao abrir o arquivo
 }
 
 int escrita_arqMem(){ // converter pra hexadecimal       (deve também receber a matriz da struct)
     int i, j, z;
     fprintf(arq, "// memory data file (do not edit the following line - required for mem load use)\n"); // linha padrão
-    fprintf(arq, "// instance=/teste/processor/comp_memInstr/memInstr\n");  // linha padrão
+    fprintf(arq, "/// instance=/teste/processor/memInstr/memInstr\n");  // linha padrão
     fprintf(arq, "// format=mti addressradix=h dataradix=s version=1.0 wordsperline=4\n");  // linha padrão
     //fprintf(arq, "%x: ", i);
 
     //----------------------------------------
     //        ESCREVER MATRIZ NO ARQUIVO
     //----------------------------------------
-    for(i=(MAX_CONJUNTOS-1); i>=0; i--){
+    for(i=(MAX_CONJUNTOS_MATRIZ-1); i>=0; i--){
         if(i*4+3 <= 16)
-            fprintf(arq, "   ");
+            fprintf(arq, "  ");     // deixa o espaçamento correto para 3 caracteres, sendo 2 vazios
         else if(i*4+3 <= 255)
-            fprintf(arq, "  ");
-        else if(i*4+3 <= 4096)
-            fprintf(arq, " ");
+            fprintf(arq, " ");      // deixa o espaçamento correto para 3 caracteres, sendo 1 vazio
         fprintf(arq, "%x: ", i*4+3); // %x faz um print diretamente em hexadecimal
         for(j=(PALAVRAS_CONJUNTO-1); j>=0; j--){
             fprintf(arq, "%s", algoritmo[i][j].palavra);

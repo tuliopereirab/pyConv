@@ -13,14 +13,14 @@ int check_comando(char comando[]);
 
 
 // externas
-int inicio_geradorMem(char nomeArq[]);
+void inicio_geradorMem(char nomeArq[]);
 int inicio_conversor(int posMemoria, char comando[], char argumento[]);
 
 void aguardar_entrada(){
     int statusQuit=0, valor_retorno, line=0, newLine, lineTemp;
-    char *arqName;
+    char arqName[20];
     char entrada[100];
-    arqName = (char*)malloc(sizeof(char)*20);
+    //arqName = (char*)malloc(sizeof(char)*20);
     printf("Inicializado, aguardando entradas: \n");
     while(statusQuit!=1){
         printf("%i-> ", line);

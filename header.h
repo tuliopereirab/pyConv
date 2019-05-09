@@ -16,7 +16,7 @@
 
 // ------------------------------
 // gerador_mem.c
-int inicio_geradorMem(char nomeArq[]);
+void inicio_geradorMem(char nomeArq[]);
 int abrirArq(char nomeArq[]);
 int escrita_arqMem();
 // ------------------------------

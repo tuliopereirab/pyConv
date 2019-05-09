@@ -4,7 +4,9 @@
 #include "gerenciador_matriz.c"
 #include "conversor.c"
 #include "controle_variaveis.c"
-#include "entrada_codigoAss.c"
+#include "input_code.c"
+#include "checks.c"
+
 
 #define MEMORY_SIZE 4096
 #define MAX_CONJUNTOS 1024
@@ -37,15 +39,22 @@ int adicionar_variavel(char chave[]);
 
 // ------------------------------
 // conversor.c
-void inicio_conversor(int posMemoria, char comando[], char argumento[]);
+int inicio_conversor(int posMemoria, char comando[], char argumento[]);
 char* montar_comando(char comando_bin[], char arg_bin[], int usaArg);
 char *verCodigo_comando(char comando[]);
 char* verComparacao(int val);
 //------------------------------
 
 // ------------------------------
-// entrada_codigoAss.c
-int check_entrada(int posMemoria, char entrada[]);
+// input_code.c
+int gerencia_entrada(int pMemory, char entrada[]);
 void aguardar_entrada();
+// ------------------------------
+
+
+// ------------------------------
+// checks.c
 void error_message(int id);
+int check_argumento(char comando[]);
+int check_comando(char comando[]);
 // ------------------------------

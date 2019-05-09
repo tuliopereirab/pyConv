@@ -3,8 +3,8 @@
 #include <math.h>
 #include <string.h>
 
-#define MEMORY_SIZE 65536
-#define MAX_CONJUNTOS 16384
+#define MEMORY_SIZE 4096
+#define MAX_CONJUNTOS 1024
 #define PALAVRAS_CONJUNTO 4
 #define LENGTH_PALAVRA 16
 

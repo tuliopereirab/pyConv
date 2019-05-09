@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ADDR_LENGTH 16
+
 struct _mem{
     char chave_acesso[20];  // nome da variável
 };
@@ -43,16 +45,15 @@ char *busca_variavel(char chave[]){      // verifica se a chave de acesso (nome 
     return endereco;
 }
 
-
 char *decimal_to_binary(int n)       // copiado de https://www.programmingsimplified.com/c/source-code/c-program-convert-decimal-to-binary
 {
    int c, d, count;
    char *pointer;
 
    count = 0;
-   pointer = (char*)malloc(8+1);
+   pointer = (char*)malloc(ADDR_LENGTH+1);
 
-   for (c = 7 ; c >= 0 ; c--){
+   for (c = ADDR_LENGTH-1; c >= 0 ; c--){
       d = n >> c;
 
       if (d & 1)

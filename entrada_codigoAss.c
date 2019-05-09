@@ -3,7 +3,7 @@
 #include <math.h>
 #include <string.h>
 
-#define MEMORY_SIZE 65536       // 16 bits
+#define MEMORY_SIZE 4096       // 12 bits
 
 int check_entrada(int posMemoria, char entrada[]);
 void aguardar_entrada();
@@ -40,7 +40,7 @@ void aguardar_entrada(){
                 printf("Valor superior ao tamanho ta memoria.\n");
         }else
             valor_retorno = check_entrada(linha, entrada);
-        
+
         if((status != 1) && (valor_retorno != 0)) // ocorreu um erro e o comando não é quit
             error_message(valor_retorno);
         else
@@ -70,25 +70,18 @@ int check_entrada(int posMemoria, char entrada[]){
     int i, j, controle, check_arg, check_comValido, tamEntrada = strlen(entrada);
     char posMem_char[5], comando[20], argumento[20];
 
-    controle = 1;
+    controle=1;
     j=0;
     for(i=0; i<tamEntrada; i++){
-        // if(controle == 0){     // salvar a posicao da memória
-        //     if(entrada[i] == ' '){
-        //         posMem_char[j] = '\0';
-        //         j = 0;
-        //         controle++;
-        //         posMemoria = atoi(posMem_char);
-        //     }else
-        //         posMem_char[j++] = entrada[i];
-        // }else
-        if(controle == 1){    // salvar o comando
+        if(controle == 1){
             if(entrada[i] == ' '){
                 comando[j] = '\0';
                 j=0;
                 controle++;
-            }else
-                comando[j++] = entrada[i];
+            }
+        else
+            comando[j++] = entrada[i];
+
         }else if(controle == 2){    // salvar o argumento
             if(entrada[i] == ' '){
                 argumento[j] = '\0';

@@ -8,7 +8,12 @@
 int check_entrada(int posMemoria, char entrada[]);
 void aguardar_entrada();
 void error_message(int id);
+int check_argumento(char comando[]);
+int check_comando(char comando[]);
 
+
+// externas
+int inicio_geradorMem(char nomeArq[]);
 void inicio_conversor(int posMemoria, char comando[], char argumento[]);
 // int main(){
 //     aguardar_entrada();
@@ -73,15 +78,13 @@ int check_entrada(int posMemoria, char entrada[]){
     controle=1;
     j=0;
     for(i=0; i<tamEntrada; i++){
-        if(controle == 1){
+        if(controle == 1){      // salvar o comando
             if(entrada[i] == ' '){
                 comando[j] = '\0';
                 j=0;
                 controle++;
-            }
-        else
-            comando[j++] = entrada[i];
-
+            }else
+                comando[j++] = entrada[i];
         }else if(controle == 2){    // salvar o argumento
             if(entrada[i] == ' '){
                 argumento[j] = '\0';

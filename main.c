@@ -8,7 +8,10 @@
 #define PALAVRAS_CONJUNTO 4
 #define LENGTH_PALAVRA 16
 
-
+// ------------------------------
+// entrada_codigoAss.c
+void aguardar_entrada();
+// ------------------------------
 
 // ------------------------------
 // gerador_mem.c

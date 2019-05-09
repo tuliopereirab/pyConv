@@ -6,8 +6,8 @@
 #include "controle_variaveis.c"
 #include "entrada_codigoAss.c"
 
-#define N_POSICOES_MEM 256
-#define MAX_CONJUNTOS 64
+#define MEMORY_SIZE 4096
+#define MAX_CONJUNTOS 1024
 #define PALAVRAS_CONJUNTO 4
 #define LENGTH_PALAVRA 16
 

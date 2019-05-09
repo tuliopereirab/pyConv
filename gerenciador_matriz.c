@@ -13,6 +13,8 @@ int inicializa_matriz();
 void printar_matriz();
 int adicionar_valor(char palavra[], int posicao);
 void retornar_matriz();
+int abrirArq(char nomeArq[]);
+int escrita_arqMem();
 //---------------------------------------
 
 struct codigo{

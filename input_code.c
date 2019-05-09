@@ -39,7 +39,7 @@ void aguardar_entrada(){
             scanf("%i", &lineTemp);
             __fpurge(stdin);
             if(lineTemp < MEMORY_SIZE)
-                line = lineTemp;
+                newLine = lineTemp;
             else
                 printf("Valor superior ao número máximo de tamanho de memória (%i).\n", MEMORY_SIZE);
         }else

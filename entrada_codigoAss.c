@@ -75,17 +75,17 @@ int check_entrada(int posMemoria, char entrada[]){
     int i, j, controle, check_arg, check_comValido, tamEntrada = strlen(entrada);
     char posMem_char[5], comando[20], argumento[20];
 
-    controle=1;
+    controle=0;
     j=0;
     for(i=0; i<tamEntrada; i++){
-        if(controle == 1){      // salvar o comando
+        if(controle == 0){      // salvar o comando
             if(entrada[i] == ' '){
                 comando[j] = '\0';
                 j=0;
                 controle++;
             }else
                 comando[j++] = entrada[i];
-        }else if(controle == 2){    // salvar o argumento
+        }else if(controle == 1){    // salvar o argumento
             if(entrada[i] == ' '){
                 argumento[j] = '\0';
                 j=0;

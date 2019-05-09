@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define MEMORY_SIZE 4096
-#define MAX_CONJUNTOS_MATRIZ 1024
+#define MAX_CONJUNTOS 1024
 #define PALAVRAS_CONJUNTO 4
 #define LENGTH_PALAVRA 16
 
@@ -36,8 +36,8 @@ struct codigo **algoritmo;
 
 int inicializa_matriz(){
     int i, j;
-    algoritmo = (struct codigo**)malloc(sizeof(struct codigo*) * MAX_CONJUNTOS_MATRIZ);
-    for(i=0; i<MAX_CONJUNTOS_MATRIZ; i++){
+    algoritmo = (struct codigo**)malloc(sizeof(struct codigo*) * MAX_CONJUNTOS);
+    for(i=0; i<MAX_CONJUNTOS; i++){
         algoritmo[i] = (struct codigo*)malloc(sizeof(struct codigo) * PALAVRAS_CONJUNTO);
         for(j=0; j<PALAVRAS_CONJUNTO; j++){
             algoritmo[i][j].palavra = (char*)malloc(sizeof(char)*LENGTH_PALAVRA);
@@ -51,7 +51,7 @@ int inicializa_matriz(){
 
 void printar_matriz(){
     int i, j;
-    for(i=0; i<MAX_CONJUNTOS_MATRIZ; i++){
+    for(i=0; i<MAX_CONJUNTOS; i++){
         for(j=0; j<PALAVRAS_CONJUNTO; j++){
             printf("%s ", algoritmo[i][j].palavra);
         }
@@ -112,7 +112,7 @@ int escrita_arqMem(){ // converter pra hexadecimal       (deve também receber a
     //----------------------------------------
     //        ESCREVER MATRIZ NO ARQUIVO
     //----------------------------------------
-    for(i=(MAX_CONJUNTOS_MATRIZ-1); i>=0; i--){
+    for(i=(MAX_CONJUNTOS-1); i>=0; i--){
         if(i*4+3 <= 16)
             fprintf(arq, "  ");     // deixa o espaçamento correto para 3 caracteres, sendo 2 vazios
         else if(i*4+3 <= 255)

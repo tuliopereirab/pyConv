@@ -32,7 +32,8 @@ void retornar_matriz();
 
 // ------------------------------
 // controle_variaveis.c
-char *decimal_to_binary(int n);
+char *decimal_to_binary_addr(int n);
+char *decimal_to_binary_code(int n);
 char *busca_variavel(char chave[]);
 int adicionar_variavel(char chave[]);
 //------------------------------

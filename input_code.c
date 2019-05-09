@@ -47,7 +47,7 @@ void aguardar_entrada(){
 
             if((statusQuit != 1) && (newLine < 0))     // newLine<0 indica que houve um erro qualquer
                 error_message(newLine);
-            else{}
+            else
                 line = newLine;
     }
 }

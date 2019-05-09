@@ -7,7 +7,9 @@ char* montar_comando(char comando_bin[], char arg_bin[], int usaArg);
 char *verCodigo_comando(char comando[]);
 char* verComparacao(int val);
 
-char *decimal_to_binary(int n);
+
+char *decimal_to_binary_addr(int n);
+char *decimal_to_binary_code(int n);
 char *busca_variavel(char chave[]);
 
 int adicionar_valor(char palavra[], int posicao);
@@ -24,11 +26,13 @@ int inicio_conversor(int posMemoria, char comando[], char argumento[]){
     char *arg_binary;
     char* comandoCompleto;     // string que será salva no arquivo .mem
     if((strcmp(comando, "LOAD_CONST")) == 0){
-        arg_binary = decimal_to_binary(atoi(argumento));   // converte o valor decimal pra binario
+        arg_binary = decimal_to_binary_code(atoi(argumento));   // converte o valor decimal pra binario
+        printf("Argumento binario: %s\n");
         comandoCompleto = montar_comando(codigoComando, arg_binary, 1);
     }else if((strcmp(comando, "LOAD_FAST")) == 0){
         arg_binary = busca_variavel(argumento);   // encontra o endereço pra variável "argumento"
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);   // gera um comando sem argumento
+        //printf("Comando recebido: %s\nCodigo comando: %s\nComando completo: %s\nArgumento: %s\n", comando, codigoComando, comandoCompleto, arg_binary);
         status = adicionar_valor(comandoCompleto, posMemoria);
         posMemoria++;     // passa a apontar para a próxima posição (a do endereço)
         comandoCompleto = montar_comando(codigoComando, arg_binary, 2); // gera uma posição de memória interamente com o argumento
@@ -44,28 +48,28 @@ int inicio_conversor(int posMemoria, char comando[], char argumento[]){
         arg_binary = verComparacao(atoi(argumento));   // encontra o endereço pra variável "argumento"
         comandoCompleto = montar_comando(codigoComando, arg_binary, 1);
     }else if((strcmp(comando, "POP_JUMP_IF_FALSE")) == 0){
-        arg_binary = decimal_to_binary(atoi(argumento));   // converte o valor decimal pra binario
+        arg_binary = decimal_to_binary_addr(atoi(argumento));   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
         status = adicionar_valor(comandoCompleto, posMemoria);
         posMemoria++;     // passa a apontar para a próxima posição (a do endereço)
         comandoCompleto = montar_comando(codigoComando, arg_binary, 2); // gera uma posição de memória interamente com o argumento
         status = adicionar_valor(comandoCompleto, posMemoria);
     }else if((strcmp(comando, "POP_JUMP_IF_TRUE")) == 0){
-        arg_binary = decimal_to_binary(atoi(argumento));   // converte o valor decimal pra binario
+        arg_binary = decimal_to_binary_addr(atoi(argumento));   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
         status = adicionar_valor(comandoCompleto, posMemoria);
         posMemoria++;     // passa a apontar para a próxima posição (a do endereço)
         comandoCompleto = montar_comando(codigoComando, arg_binary, 2); // gera uma posição de memória interamente com o argumento
         status = adicionar_valor(comandoCompleto, posMemoria);
     }else if((strcmp(comando, "JUMP_ABSOLUTE")) == 0){
-        arg_binary = decimal_to_binary(atoi(argumento));   // converte o valor decimal pra binario
+        arg_binary = decimal_to_binary_addr(atoi(argumento));   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
         status = adicionar_valor(comandoCompleto, posMemoria);
         posMemoria++;     // passa a apontar para a próxima posição (a do endereço)
         comandoCompleto = montar_comando(codigoComando, arg_binary, 2); // gera uma posição de memória interamente com o argumento
         status = adicionar_valor(comandoCompleto, posMemoria);
     }else if((strcmp(comando, "JUMP_FORWARD")) == 0){
-        arg_binary = decimal_to_binary(atoi(argumento));   // converte o valor decimal pra binario
+        arg_binary = decimal_to_binary_addr(atoi(argumento));   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
         status = adicionar_valor(comandoCompleto, posMemoria);
         posMemoria++;     // passa a apontar para a próxima posição (a do endereço)
@@ -87,7 +91,7 @@ int inicio_conversor(int posMemoria, char comando[], char argumento[]){
         arg_binary = NULL;   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
     }else if((strcmp(comando, "CALL_FUNCTION")) == 0){
-        arg_binary = decimal_to_binary(atoi(argumento));   // converte o valor decimal pra binario
+        arg_binary = decimal_to_binary_addr(atoi(argumento));   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
         status = adicionar_valor(comandoCompleto, posMemoria);
         posMemoria++;     // passa a apontar para a próxima posição (a do endereço)
@@ -98,7 +102,6 @@ int inicio_conversor(int posMemoria, char comando[], char argumento[]){
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
     }
 
-    status = adicionar_valor(comandoCompleto, posMemoria);
     posMemoria++;
     return posMemoria;
 }
@@ -109,7 +112,7 @@ char* montar_comando(char comando_bin[], char arg_bin[], int usaArg){       // u
     if(usaArg == 0){
         strcpy(comandoCompleto, "00000000");
         strcat(comandoCompleto, comando_bin);
-    }if(usaArg == 2){           // entrada de uma posição de endereço (os 16 bits serão o endereço)
+    }else if(usaArg == 2){           // entrada de uma posição de endereço (os 16 bits serão o endereço)
         strcpy(comandoCompleto, arg_bin);
     }else{
         strcpy(comandoCompleto, arg_bin);

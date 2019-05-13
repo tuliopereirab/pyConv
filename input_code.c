@@ -68,6 +68,7 @@ int gerencia_entrada(int pMemory, char entrada[]){
     for(i=0; i<tamEntrada; i++){
         if(controleEspacos == 0){
             if(entrada[i] == ' '){
+                printf("Espaco!\n");
                 comando[j] = '\0';
                 controleEspacos++;
                 j=0;
@@ -88,7 +89,7 @@ int gerencia_entrada(int pMemory, char entrada[]){
         return -4;
 
     if(controleEspacos == 0)
-        if(check_argumento == 1)    // comando precisa de argumento
+        if(check_argumento(comando) == 1)    // comando precisa de argumento
             return -3;
 
     return inicio_conversor(pMemory, comando, argumento);

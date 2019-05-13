@@ -67,7 +67,7 @@ int check_comando(char comando[]){
         return 1;
     else if((strcmp(comando, "JUMP_ABSOLUTE")) == 0)
         return 1;
-    else if((strcmp(comando, "COMPARE_0P")) == 0)
+    else if((strcmp(comando, "COMPARE_OP")) == 0)
         return 1;
     // else if((strcmp(comando, "SETUP_LOOP")) == 0)
     //     return 1;

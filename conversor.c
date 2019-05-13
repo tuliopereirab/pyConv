@@ -195,7 +195,7 @@ char *verCodigo_comando(char comando[]){
         return jump_forward;
     else if((strcmp(comando, "JUMP_ABSOLUTE")) == 0)
         return jump_absolute;
-    else if((strcmp(comando, "COMPARE_0P")) == 0)
+    else if((strcmp(comando, "COMPARE_OP")) == 0)
         return compare_op;
     // else if((strcmp(comando, "SETUP_LOOP")) == 0)
     //     return 1;

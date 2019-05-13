@@ -68,7 +68,6 @@ int gerencia_entrada(int pMemory, char entrada[]){
     for(i=0; i<tamEntrada; i++){
         if(controleEspacos == 0){
             if(entrada[i] == ' '){
-                printf("Espaco!\n");
                 comando[j] = '\0';
                 controleEspacos++;
                 j=0;

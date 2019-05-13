@@ -13,6 +13,7 @@ int check_comando(char comando[]);
 
 
 // externas
+void help_init();
 void inicio_geradorMem(char nomeArq[]);
 int inicio_conversor(int posMemoria, char comando[], char argumento[]);
 
@@ -20,6 +21,7 @@ void aguardar_entrada(){
     int statusQuit=0, valor_retorno, line=0, newLine, lineTemp;
     char arqName[20];
     char entrada[100];
+    char commandHelp[50];
     //arqName = (char*)malloc(sizeof(char)*20);
     printf("Inicializado, aguardando entradas: \n");
     while(statusQuit!=1){
@@ -42,6 +44,12 @@ void aguardar_entrada(){
                 newLine = lineTemp;
             else
                 printf("Valor superior ao número máximo de tamanho de memória (%i).\n", MEMORY_SIZE);
+        }else if(((strcmp(entrada, "help")) == 0) || ((strcmp(entrada, "HELP")) == 0) || ((strcmp(entrada, "Help")) == 0)){
+            printf("Comando: ");
+            scanf("%s", &commandHelp);
+            __fpurge(stdin);
+            help_init(commandHelp);
+            newLine = line;
         }else
             newLine = gerencia_entrada(line, entrada);      // retorna o valor da nova linha, que poderá ser incrementado por 2 ou 1, dependendo da instrução
 

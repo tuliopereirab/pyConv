@@ -6,6 +6,7 @@
 #include "controle_variaveis.c"
 #include "input_code.c"
 #include "checks.c"
+#include "help.c"
 
 
 #define MEMORY_SIZE 4096
@@ -58,4 +59,9 @@ void aguardar_entrada();
 void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
+// ------------------------------
+
+// ------------------------------
+// help.c
+void help_init();
 // ------------------------------

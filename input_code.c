@@ -92,9 +92,9 @@ int gerencia_entrada(int pMemory, char entrada[]){
         if(check_argumento(comando) == 1)    // comando precisa de argumento
             return -3;
 
-    if((checkTos = check_tos(comando)) < 0)
-        return checkTos;
     if((analiseArg = analise_argumento(comando, argumento, pMemory)) < 0)
         return analiseArg;
+    if((checkTos = check_tos(comando)) < 0)
+        return checkTos;
     return inicio_conversor(pMemory, comando, argumento);
 }

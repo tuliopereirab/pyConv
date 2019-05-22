@@ -16,6 +16,8 @@ void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
 int analise_argumento(char comando[], char argumento[], int line);
+int check_comparacao(char arg[]);
+
 
 int tos_index=0, tos_func=0;
 
@@ -48,6 +50,9 @@ void error_message(int id){
             break;
         case -9:
             printf("A soma do valor com a linha atual da instrução deve estar entre 0 e %i.\n", N_POSICOES_MEM-1);
+            break;
+        case -10:
+            printf("O valor de argumento para COMPARE_OP deve ser um dos pré-definidos. Utilize o comando 'help' para verificar.\n");
     }
 }
 
@@ -226,8 +231,12 @@ int analise_argumento(char comando[], char argumento[], int line){
     else if((strcmp(comando, "COMPARE_OP")) == 0)
         if((arg=atoi(argumento)) > DATA_MAX_NUM)
             return -7;
-        else
-            return 0;
+        else{
+            if(check_comparacao(argumento) < 0)
+                return -10;
+            else
+                return 0;
+        }
     else if((strcmp(comando, "CALL_FUNCTION")) == 0)
         if((arg=atoi(argumento)) >= N_POSICOES_MEM)
             return -8;
@@ -235,4 +244,15 @@ int analise_argumento(char comando[], char argumento[], int line){
             return 0;
     else
         return 0;       // indica que o comando não existe
+}
+
+int check_comparacao(char arg[]){
+    if((strcmp(arg, "0")) == 0)
+        return 0;
+    else if((strcmp(arg, "1")) == 0)
+        return 0;
+    else if((strcmp(arg, "2")) == 0)
+        return 0;
+    else
+        return -10;             // erro
 }

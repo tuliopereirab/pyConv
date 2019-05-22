@@ -15,6 +15,7 @@ char *decimal_to_binary_addr(int n);
 char *decimal_to_binary_code(int n);
 char *busca_variavel(char chave[]);
 int adicionar_variavel(char chave[]);
+int verifica_variavel(char variavel[]);
 
 mem *memoria;
 int tamMemoria = 0;          // a posição no vetor 'memoria' também é o endereço de memoria da memória física
@@ -46,6 +47,15 @@ char *busca_variavel(char chave[]){      // verifica se a chave de acesso (nome 
     idVar = adicionar_variavel(chave);
     endereco = decimal_to_binary_addr(idVar);
     return endereco;
+}
+
+int verifica_variavel(char variavel[]){
+    int i;
+    for(i=0; i<tamMemoria; i++){
+        if((strcmp(memoria[i].chave_acesso, variavel)) == 0)
+            return 0;
+    }
+    return -11;
 }
 
 char *decimal_to_binary_code(int n)       // copiado de https://www.programmingsimplified.com/c/source-code/c-program-convert-decimal-to-binary

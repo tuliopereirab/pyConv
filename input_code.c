@@ -7,16 +7,18 @@
 
 int gerencia_entrada(int posMemoria, char entrada[]);
 void aguardar_entrada();
-void error_message(int id);
-int check_argumento(char comando[]);
-int check_comando(char comando[]);
-int check_tos(char comando[]);
 
 // externas
 void help_init();
 void inicio_geradorMem(char nomeArq[]);
 int inicio_conversor(int posMemoria, char comando[], char argumento[]);
 int analise_argumento(char comando[], char argumento[], int line);
+int check_variaveis(char comando[], char arg[]);
+int verifica_variavel(char variavel[]);
+void error_message(int id);
+int check_argumento(char comando[]);
+int check_comando(char comando[]);
+int check_tos(char comando[]);
 
 void aguardar_entrada(){
     int statusQuit=0, valor_retorno, line=0, newLine, lineTemp;
@@ -94,6 +96,8 @@ int gerencia_entrada(int pMemory, char entrada[]){
 
     if((analiseArg = analise_argumento(comando, argumento, pMemory)) < 0)
         return analiseArg;
+    if(check_variaveis(comando, argumento) < 0)
+        return -11;
     if((checkTos = check_tos(comando)) < 0)
         return checkTos;
     return inicio_conversor(pMemory, comando, argumento);

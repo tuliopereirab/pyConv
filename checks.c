@@ -17,7 +17,7 @@ int check_argumento(char comando[]);
 int check_comando(char comando[]);
 int analise_argumento(char comando[], char argumento[], int line);
 int check_comparacao(char arg[]);
-
+int check_variaveis(char comando[], char arg[]);
 
 int tos_index=0, tos_func=0;
 
@@ -53,6 +53,9 @@ void error_message(int id){
             break;
         case -10:
             printf("O valor de argumento para COMPARE_OP deve ser um dos pré-definidos. Utilize o comando 'help' para verificar.\n");
+            break;
+        case -11:
+            printf("Variável acessada pelo 'LOAD_FAST' inexistente.\nUtilize 'LOAD_CONST' + 'STORE_FAST' para criá-la antes de acessá-la.\n");
     }
 }
 
@@ -255,4 +258,14 @@ int check_comparacao(char arg[]){
         return 0;
     else
         return -10;             // erro
+}
+
+int check_variaveis(char comando[], char arg[]){
+    if((strcmp(comando, "LOAD_FAST")) == 0)
+        if(verifica_variavel(arg) == 0)
+            return 0;
+        else
+            return -11;
+    else
+        return 0;
 }

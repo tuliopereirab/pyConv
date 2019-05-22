@@ -37,6 +37,7 @@ char *decimal_to_binary_addr(int n);
 char *decimal_to_binary_code(int n);
 char *busca_variavel(char chave[]);
 int adicionar_variavel(char chave[]);
+int verifica_variavel(char variavel[]);
 //------------------------------
 
 // ------------------------------
@@ -61,6 +62,7 @@ int check_argumento(char comando[]);
 int check_comando(char comando[]);
 int check_tos(char comando[]);
 int analise_argumento(char comando[], char argumento[], int line);
+int check_variaveis(char comando[], char arg[]);
 // ------------------------------
 
 // ------------------------------

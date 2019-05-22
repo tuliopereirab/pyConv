@@ -3,9 +3,18 @@
 #include <math.h>
 #include <string.h>
 
+#define N_POSICOES_MEM 4096
+#define MAX_CONJUNTOS 1024
+#define PALAVRAS_CONJUNTO 4
+#define LENGTH_PALAVRA 16
+
+
+int check_tos(char comando[]);
 void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
+
+int tos_index=0, tos_func=0;
 
 void error_message(int id){
     switch(id){
@@ -21,6 +30,12 @@ void error_message(int id){
             break;
         case -4:
             printf("Comando digitado é invalido.\n");
+            break;
+        case -5:
+            printf("Instrução tornará o valor de topo da pilha inválido.\n");
+            break;
+        case -6:
+            printf("Instrução tornará o valor de topo da pilha de funções inválido.\n");
     }
 }
 
@@ -36,6 +51,8 @@ int check_argumento(char comando[]){
         return 0;  // indica que não tem erro, já que não precisa de argumento
     else if((strcmp(comando, "INPLACE_ADD")) == 0)
         return 0;  // indica que não tem erro, já que não precisa de argumento
+    else if((strcmp(comando, "RETURN_VALUE")) == 0)
+        return 0;   // indica que não tem erro, já que não precisa de argumento
     else
         return 1;
 }
@@ -80,4 +97,79 @@ int check_comando(char comando[]){
     else
         return 0;       // indica que o comando não existe
 
+}
+
+int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
+    if((strcmp(comando, "LOAD_CONST")) == 0)
+        if(tos_index < N_POSICOES_MEM){
+            tos_index++;
+            return 0;
+        }else
+            return -5;
+    else if((strcmp(comando, "LOAD_FAST")) == 0)
+        if(tos_index < N_POSICOES_MEM){
+            tos_index++;
+            return 0;
+        }else
+            return -5;
+    else if((strcmp(comando, "STORE_FAST")) == 0)
+        if(tos_index == 0)
+            return -5;
+        else{
+            tos_index--;
+            return 0;
+        }
+    else if((strcmp(comando, "BINARY_ADD")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }
+    else if((strcmp(comando, "BINARY_SUBTRACT")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }
+    else if((strcmp(comando, "BINARY_MULTIPLY")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }
+    else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }
+    else if((strcmp(comando, "INPLACE_ADD")) == 0)      // não decrementa e pega apenas um valor para somar 1 a ele mesmo
+        if(tos_index == 0)
+            return -5;
+        else
+            return 0;
+    else if((strcmp(comando, "COMPARE_OP")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index = tos_index-2;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }
+    else if((strcmp(comando, "CALL_FUNCTION")) == 0){
+        tos_func++;
+        return 0;
+    }
+    else if((strcmp(comando, "RETURN_VALUE")) == 0)
+        if(tos_func == 0)
+            return -6;
+        else{
+            tos_func--;
+            return 0;
+        }
+    else
+        return 0;       // indica que o comando não causa efeito em nenhuma pilha
 }

@@ -41,7 +41,7 @@ int inicializa_matriz(){
         algoritmo[i] = (struct codigo*)malloc(sizeof(struct codigo) * PALAVRAS_CONJUNTO);
         for(j=0; j<PALAVRAS_CONJUNTO; j++){
             algoritmo[i][j].palavra = (char*)malloc(sizeof(char)*LENGTH_PALAVRA);
-            strcpy(algoritmo[i][j].palavra, "UUUUUUUUUUUUUUUU\0");   // inicializa a posição com um valor padrão de inicialização
+            strcpy(algoritmo[i][j].palavra, "0000000000000000\0");   // inicializa a posição com um valor padrão de inicialização
             algoritmo[i][j].status = 0;   // indica que ainda não houve escrita na posição, evitando sobrescrever algo
         }
     }

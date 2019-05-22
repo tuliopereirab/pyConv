@@ -59,6 +59,7 @@ void aguardar_entrada();
 void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
+int check_tos(char comando[]);
 // ------------------------------
 
 // ------------------------------

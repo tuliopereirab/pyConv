@@ -10,7 +10,7 @@ void aguardar_entrada();
 void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
-
+int check_tos(char comando[]);
 
 // externas
 void help_init();
@@ -61,7 +61,7 @@ void aguardar_entrada(){
 }
 
 int gerencia_entrada(int pMemory, char entrada[]){
-    int i, j, newLine, controleEspacos, tamEntrada = strlen(entrada);
+    int i, j, newLine, controleEspacos, tamEntrada = strlen(entrada), checkTos;
     char comando[20], argumento[20];
     controleEspacos = 0;
     j=0;
@@ -91,5 +91,7 @@ int gerencia_entrada(int pMemory, char entrada[]){
         if(check_argumento(comando) == 1)    // comando precisa de argumento
             return -3;
 
+    if((checkTos = check_tos(comando)) < 0)
+        return checkTos;
     return inicio_conversor(pMemory, comando, argumento);
 }

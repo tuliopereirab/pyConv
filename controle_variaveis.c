@@ -27,7 +27,7 @@ int adicionar_variavel(char chave[]){
         memoria = (mem*)malloc(sizeof(mem)*tamMemoria);
     }else{
         tamMemoria++;
-        memoria = (mem*)realloc(memoria, tamMemoria);
+        memoria = (mem*)realloc(memoria, sizeof(mem)*tamMemoria);
     }
 
     strcpy(memoria[tamMemoria-1].chave_acesso, chave);

@@ -7,12 +7,15 @@
 #define MAX_CONJUNTOS 1024
 #define PALAVRAS_CONJUNTO 4
 #define LENGTH_PALAVRA 16
+#define DATA_WIDTH 8
+#define DATA_MAX_NUM 255
 
 
 int check_tos(char comando[]);
 void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
+int analise_argumento(char comando[], char argumento[], int line);
 
 int tos_index=0, tos_func=0;
 
@@ -23,7 +26,7 @@ void error_message(int id){
             printf("Exemplo: LOAD_CONST 15\n\n");
             break;
         case -2:     // posicao de memória invalido
-            printf("O valor de 'num_linha' deve estar entre 0 e 255.\n");
+            printf("O valor de 'num_linha' deve estar entre 0 e %i.\n", N_POSICOES_MEM-1);
             break;
         case -3:
             printf("O comando utilizado necessita de um argumento.\n"); // comando necessita argumento
@@ -36,6 +39,15 @@ void error_message(int id){
             break;
         case -6:
             printf("Instrução tornará o valor de topo da pilha de funções inválido.\n");
+            break;
+        case -7:
+            printf("O valor do argumento deve ser entre 0 e %i.\n", DATA_MAX_NUM);
+            break;
+        case -8:
+            printf("O endereço de memória deve estar entre 0 e %i.\n", N_POSICOES_MEM-1);
+            break;
+        case -9:
+            printf("A soma do valor com a linha atual da instrução deve estar entre 0 e %i.\n", N_POSICOES_MEM-1);
     }
 }
 
@@ -172,4 +184,55 @@ int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
         }
     else
         return 0;       // indica que o comando não causa efeito em nenhuma pilha
+}
+
+int analise_argumento(char comando[], char argumento[], int line){
+    int arg;
+    if((strcmp(comando, "LOAD_CONST")) == 0)
+        if((arg=atoi(argumento)) > DATA_MAX_NUM)
+            return -7;
+        else
+            return 0;
+    else if((strcmp(comando, "LOAD_FAST")) == 0)
+        if((arg=atoi(argumento)) >= N_POSICOES_MEM)
+            return -8;
+        else
+            return 0;
+    else if((strcmp(comando, "STORE_FAST")) == 0)
+        if((arg=atoi(argumento)) >= N_POSICOES_MEM)
+            return -8;
+        else
+            return 0;
+    else if((strcmp(comando, "POP_JUMP_IF_FALSE")) == 0)
+        if((arg=atoi(argumento)) >= N_POSICOES_MEM)
+            return -8;
+        else
+            return 0;
+    else if((strcmp(comando, "POP_JUMP_IF_TRUE")) == 0)
+        if((arg=atoi(argumento)) >= N_POSICOES_MEM)
+            return -8;
+        else
+            return 0;
+    else if((strcmp(comando, "JUMP_FORWARD")) == 0)
+        if((arg=atoi(argumento) + line) >= N_POSICOES_MEM)
+            return -9;
+        else
+            return 0;
+    else if((strcmp(comando, "JUMP_ABSOLUTE")) == 0)
+        if((arg=atoi(argumento)) >= N_POSICOES_MEM)
+            return -8;
+        else
+            return 0;
+    else if((strcmp(comando, "COMPARE_OP")) == 0)
+        if((arg=atoi(argumento)) > DATA_MAX_NUM)
+            return -7;
+        else
+            return 0;
+    else if((strcmp(comando, "CALL_FUNCTION")) == 0)
+        if((arg=atoi(argumento)) >= N_POSICOES_MEM)
+            return -8;
+        else
+            return 0;
+    else
+        return 0;       // indica que o comando não existe
 }

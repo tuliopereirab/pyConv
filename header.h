@@ -60,6 +60,7 @@ void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
 int check_tos(char comando[]);
+int analise_argumento(char comando[], char argumento[], int line);
 // ------------------------------
 
 // ------------------------------

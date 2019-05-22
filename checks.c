@@ -18,8 +18,9 @@ int check_comando(char comando[]);
 int analise_argumento(char comando[], char argumento[], int line);
 int check_comparacao(char arg[]);
 int check_variaveis(char comando[], char arg[]);
+int check_popJump(char comando[]);
 
-int tos_index=0, tos_func=0;
+int tos_index=0, tos_func=0, cont_comp=0;
 
 void error_message(int id){
     switch(id){
@@ -56,6 +57,9 @@ void error_message(int id){
             break;
         case -11:
             printf("Variável acessada pelo 'LOAD_FAST' inexistente.\nUtilize 'LOAD_CONST' + 'STORE_FAST' para criá-la antes de acessá-la.\n");
+            break;
+        case -12:
+            printf("Para realizar um 'POP_JUMP_IF_', é preciso que tenha sido feita uma comparação ('COMPARE_OP') anteriormente.\n");
     }
 }
 
@@ -167,11 +171,11 @@ int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
             tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
             return 0;
         }
-    else if((strcmp(comando, "INPLACE_ADD")) == 0)      // não decrementa e pega apenas um valor para somar 1 a ele mesmo
-        if(tos_index == 0)
-            return -5;
-        else
-            return 0;
+    // else if((strcmp(comando, "INPLACE_ADD")) == 0)      // não decrementa e pega apenas um valor para somar 1 a ele mesmo
+    //     if(tos_index == 0)
+    //         return -5;
+    //     else
+    //         return 0;
     else if((strcmp(comando, "COMPARE_OP")) == 0)
         if(tos_index <= 1)
             return -5;
@@ -267,5 +271,19 @@ int check_variaveis(char comando[], char arg[]){
         else
             return -11;
     else
+        return 0;
+}
+
+int check_popJump(char comando[]){
+    if((strcmp(comando, "COMPARE_OP")) == 0){
+        cont_comp++;
+        return 0;
+    }else if(((strcmp(comando, "POP_JUMP_IF_TRUE")) == 0) || ((strcmp(comando, "POP_JUMP_IF_FALSE"))== 0)){
+        if(cont_comp > 0){
+            cont_comp--;
+            return 0;
+        }else
+            return -12;
+    }else
         return 0;
 }

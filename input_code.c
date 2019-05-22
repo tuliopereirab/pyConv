@@ -19,6 +19,7 @@ void error_message(int id);
 int check_argumento(char comando[]);
 int check_comando(char comando[]);
 int check_tos(char comando[]);
+int check_popJump(char comando[]);
 
 void aguardar_entrada(){
     int statusQuit=0, valor_retorno, line=0, newLine, lineTemp;
@@ -98,6 +99,8 @@ int gerencia_entrada(int pMemory, char entrada[]){
         return analiseArg;
     if(check_variaveis(comando, argumento) < 0)
         return -11;
+    if(check_popJump(comando) < 0)
+        return -12;
     if((checkTos = check_tos(comando)) < 0)
         return checkTos;
     return inicio_conversor(pMemory, comando, argumento);

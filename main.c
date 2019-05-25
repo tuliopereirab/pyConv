@@ -39,9 +39,10 @@ int main(int argc, char **argv){
     inicializa_matriz();       // criação da matriz zerada
     if((strcmp(argv[1], "-mif")) == 0)
         op = 1;         // arq .mif
-    else if(((strcmp(argv[1], "-h")) == 0) || ((strcmp(argv[1], "-help")) == 0))
+    else if(((strcmp(argv[1], "-h")) == 0) || ((strcmp(argv[1], "-help")) == 0)){
         help_inicializacao();
-    else
+        return 0;
+    }else
         op = 0;         // arq .mem
     aguardar_entrada(op);
     //inicio_geradorMem("segundoArq", algoritmo);

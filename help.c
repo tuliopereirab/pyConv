@@ -132,5 +132,5 @@ void help_returnValue(){
 void help_inicializacao(){
     printf("Ao inicializar o sistema, deve-se escolher o tipo de arquivo a ser gerado no final.\n");
     printf("Por padrão, geras-se um arquivo '.mem', caso o outro não seja escolhido.\n");
-    printf("Para recolher, utilize:\n\t'./Compilador -mif'\n");
+    printf("Para escolher, utilize:\n\t'./Compilador -mif'\n");
 }

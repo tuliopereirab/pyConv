@@ -17,6 +17,7 @@ void help_jumpForward();
 void help_jumpAbsolute();
 void help_callFunc();
 void help_returnValue();
+void help_inicializacao();
 
 void help_init(char command[]){
 
@@ -126,4 +127,10 @@ void help_returnValue(){
     printf("Descrição: realiza um retorno para o valor de PC salvo na função CALL_FUNCTION e retorna o valor do topo da pilha atual para o novo topo.\n");
     printf("Formatação: 'RETURN_VALUE'\n");
     printf("Não utiliza argumento.\n");
+}
+
+void help_inicializacao(){
+    printf("Ao inicializar o sistema, deve-se escolher o tipo de arquivo a ser gerado no final.\n");
+    printf("Por padrão, geras-se um arquivo '.mem', caso o outro não seja escolhido.\n");
+    printf("Para recolher, utilize:\n\t'./Compilador -mif'\n");
 }

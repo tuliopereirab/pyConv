@@ -6,7 +6,7 @@
 #define MEMORY_SIZE 4096       // 12 bits
 
 int gerencia_entrada(int posMemoria, char entrada[]);
-void aguardar_entrada();
+void aguardar_entrada(int arqType);
 
 // externas
 void help_init();
@@ -20,9 +20,10 @@ int check_argumento(char comando[]);
 int check_comando(char comando[]);
 int check_tos(char comando[]);
 int check_popJump(char comando[]);
+void inicio_geradorMem_mif(char nomeArq[], int higherLine);
 
-void aguardar_entrada(){
-    int statusQuit=0, valor_retorno, line=0, newLine, lineTemp;
+void aguardar_entrada(int arqType){
+    int statusQuit=0, valor_retorno, line=0, newLine, lineTemp, higherLine=0;
     char arqName[20];
     char entrada[100];
     char commandHelp[50];
@@ -38,7 +39,10 @@ void aguardar_entrada(){
                 printf("Nome do arquivo: ");
                 scanf("%s", &arqName);
                 __fpurge(stdin);
-                inicio_geradorMem(arqName);
+                if(arqType == 1)            // gerador de arquivo .mif
+                    inicio_geradorMem_mif(arqName, higherLine);
+                else
+                    inicio_geradorMem(arqName);
             }
         }else if(((strcmp(entrada, "line")) == 0) || ((strcmp(entrada, "LINE")) == 0) || ((strcmp(entrada, "Line")) == 0)){
             printf("Linha destino: ");
@@ -59,8 +63,11 @@ void aguardar_entrada(){
 
             if((statusQuit != 1) && (newLine < 0))     // newLine<0 indica que houve um erro qualquer
                 error_message(newLine);
-            else
+            else{
                 line = newLine;
+                if(line > higherLine)
+                    higherLine = newLine;
+            }
     }
 }
 

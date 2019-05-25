@@ -10,7 +10,7 @@
 
 // ------------------------------
 // entrada_codigoAss.c
-void aguardar_entrada();
+void aguardar_entrada(int arqType);
 // ------------------------------
 
 // ------------------------------
@@ -28,10 +28,21 @@ int adicionar_valor(char palavra[], int posicao);
 void retornar_matriz();
 // ------------------------------
 
+// ------------------------------
+// help.c
+void help_inicializacao();
+// ------------------------------
 
 
 int main(int argc, char **argv){
+    int op;
     inicializa_matriz();       // criação da matriz zerada
-    aguardar_entrada();
+    if((strcmp(argv[1], "-mif")) == 0)
+        op = 1;         // arq .mif
+    else if(((strcmp(argv[1], "-h")) == 0) || ((strcmp(argv[1], "-help")) == 0))
+        help_inicializacao();
+    else
+        op = 0;         // arq .mem
+    aguardar_entrada(op);
     //inicio_geradorMem("segundoArq", algoritmo);
 }

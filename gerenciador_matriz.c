@@ -16,6 +16,9 @@ void retornar_matriz();
 int abrirArq(char nomeArq[]);
 int escrita_arqMem();
 void inicio_geradorMem(char nomeArq[]);
+int abrirArq_mif(char nomeArq[]);
+int escrita_arqMem_mif(int higherLine);
+void inicio_geradorMem_mif(char nomeArq[], int higherLine);
 //---------------------------------------
 
 struct codigo{
@@ -83,7 +86,7 @@ int adicionar_valor(char palavra[], int posicao){
 void inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da struct
     int status;
     if((status = abrirArq(nomeArq)) == 0)
-        return 0;
+        system("EXIT_FAILURE");
     status = escrita_arqMem();
     fclose(arq);
     exit(EXIT_SUCCESS);
@@ -125,6 +128,78 @@ int escrita_arqMem(){ // converter pra hexadecimal       (deve também receber a
         }
         fprintf(arq, "\n");
     }
+    //----------------------------------------
+    return 1;
+}
+
+// ====================================================================================================================
+// arquivo MIF
+void inicio_geradorMem_mif(char nomeArq[], int higherLine){
+    int status;
+    if((status = abrirArq_mif(nomeArq)) == 0)
+        system("EXIT_FAILURE");
+    status = escrita_arqMem_mif(higherLine);
+    fclose(arq);
+    exit(EXIT_SUCCESS);
+    //return status;
+}
+
+int abrirArq_mif(char nomeArq[]){
+    int tamNome = strlen(nomeArq);
+    char *nomeCompleto;
+    nomeCompleto = (char*)malloc(sizeof(char)*tamNome+4);
+    strcpy(nomeCompleto, nomeArq);
+    strcat(nomeCompleto, ".mif");
+    if((arq = fopen(nomeCompleto, "w+")) != NULL)
+        return 1;      // abriu o arquivo
+    else
+        return 0;      // erro ao abrir o arquivo
+}
+
+int escrita_arqMem_mif(int higherLine){ // converter pra hexadecimal       (deve também receber a matriz da struct)
+    int i, j, z, lastI, lastJ, line=0;
+    fprintf(arq, "-- Copyright (C) 1991-2013 Altera Corporation\n");
+    fprintf(arq, "-- Your use of Altera Corporation's design tools, logic functions\n");
+    fprintf(arq, "-- and other software and tools, and its AMPP partner logic \n");
+    fprintf(arq, "-- functions, and any output files from any of the foregoing \n");
+    fprintf(arq, "-- (including device programming or simulation files), and any \n");
+    fprintf(arq, "-- associated documentation or information are expressly subject \n");
+    fprintf(arq, "-- to the terms and conditions of the Altera Program License \n");
+    fprintf(arq, "-- Subscription Agreement, Altera MegaCore Function License \n");
+    fprintf(arq, "-- Agreement, or other applicable license agreement, including, \n");
+    fprintf(arq, "-- without limitation, that your use is for the sole purpose of \n");
+    fprintf(arq, "-- programming logic devices manufactured by Altera and sold by \n");
+    fprintf(arq, "-- Altera or its authorized distributors.  Please refer to the \n");
+    fprintf(arq, "-- applicable agreement for further details.\n\n");
+
+    fprintf(arq, "-- Quartus II generated Memory Initialization File (.mif)\n\n");
+
+    fprintf(arq, "WIDTH=%i;\n", LENGTH_PALAVRA);
+    fprintf(arq, "DEPTH=%i;\n\n", MEMORY_SIZE);
+    fprintf(arq, "ADDRESS_RADIX=UNS;\n");
+    fprintf(arq, "DATA_RADIX=BIN;\n\n");
+
+    fprintf(arq, "CONTENT BEGIN\n");
+
+    lastI = higherLine/4;
+    lastJ = higherLine%4;
+
+    printf("LastI: %i\nlastJ: %i\n", lastI, lastJ);
+
+    //----------------------------------------
+    //        ESCREVER MATRIZ NO ARQUIVO
+    //----------------------------------------
+    for(i=0; i<=lastI; i++){
+        for(j=0; j<4; j++){
+            if((j==lastJ) && (i==lastI)){
+                fprintf(arq, "\t[%i..%i]\t:\t0000000000000000;\n", higherLine, MEMORY_SIZE-1);
+                j=4+1;
+            }else
+                fprintf(arq, "\t%i\t:\t%s;\n", line, algoritmo[i][j].palavra);
+            line++;
+        }
+    }
+    fprintf(arq, "END;\n");
     //----------------------------------------
     return 1;
 }

@@ -28,6 +28,7 @@ int inicializa_matriz();
 void printar_matriz();
 int adicionar_valor(char palavra[], int posicao);
 void retornar_matriz();
+void inicio_geradorMem_mif(char nomeArq[], int higherLine);
 // ------------------------------
 
 
@@ -51,7 +52,7 @@ char* verComparacao(int val);
 // ------------------------------
 // input_code.c
 int gerencia_entrada(int pMemory, char entrada[]);
-void aguardar_entrada();
+void aguardar_entrada(int arqType);
 // ------------------------------
 
 
@@ -68,4 +69,5 @@ int check_variaveis(char comando[], char arg[]);
 // ------------------------------
 // help.c
 void help_init();
+void help_inicializacao();
 // ------------------------------

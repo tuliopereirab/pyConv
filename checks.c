@@ -20,6 +20,9 @@ int check_comparacao(char arg[]);
 int check_variaveis(char comando[], char arg[]);
 int check_popJump(char comando[]);
 
+// externas
+int verifica_variavel(char arg[]);
+
 int tos_index=0, tos_func=0, cont_comp=0;
 
 void error_message(int id){

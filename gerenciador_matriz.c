@@ -89,7 +89,7 @@ void inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da s
         system("EXIT_FAILURE");
     status = escrita_arqMem();
     fclose(arq);
-    exit(EXIT_SUCCESS);
+    //exit(EXIT_SUCCESS);
     //return status;
 }
 
@@ -184,7 +184,7 @@ int escrita_arqMem_mif(int higherLine){ // converter pra hexadecimal       (deve
     lastI = higherLine/4;
     lastJ = higherLine%4;
 
-    printf("LastI: %i\nlastJ: %i\n", lastI, lastJ);
+    //printf("LastI: %i\nlastJ: %i\n", lastI, lastJ);
 
     //----------------------------------------
     //        ESCREVER MATRIZ NO ARQUIVO

@@ -37,13 +37,23 @@ void help_inicializacao();
 int main(int argc, char **argv){
     int op;
     inicializa_matriz();       // criação da matriz zerada
-    if((strcmp(argv[1], "-mif")) == 0)
-        op = 1;         // arq .mif
-    else if(((strcmp(argv[1], "-h")) == 0) || ((strcmp(argv[1], "-help")) == 0)){
-        help_inicializacao();
-        return 0;
-    }else
-        op = 0;         // arq .mem
+    if(argc == 1)
+        op = 99;            // ambos
+    else{
+        if((strcmp(argv[1], "-mif")) == 0)
+            op = 1;         // arq .mif
+        if((strcmp(argv[1], "-mem")) == 0)
+            op = 0;         // arq .mem
+        else if(((strcmp(argv[1], "-h")) == 0) || ((strcmp(argv[1], "-help")) == 0)){
+            help_inicializacao();
+            return 0;
+        }else{
+            printf("Opção digitada é inválida.\nUtilize './Compilador -h' para mais informações.\n");
+            return 0;
+        }
+    }
+
+    printf("op: %i\n", op);
     aguardar_entrada(op);
     //inicio_geradorMem("segundoArq", algoritmo);
 }

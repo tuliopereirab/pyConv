@@ -39,10 +39,17 @@ void aguardar_entrada(int arqType){
                 printf("Nome do arquivo: ");
                 scanf("%s", &arqName);
                 __fpurge(stdin);
-                if(arqType == 1)            // gerador de arquivo .mif
+                if(arqType == 1){            // gerador de arquivo .mif
                     inicio_geradorMem_mif(arqName, higherLine);
-                else
+                    exit(EXIT_SUCCESS);
+                }else if(arqType == 0){
                     inicio_geradorMem(arqName);
+                    exit(EXIT_SUCCESS);
+                }else{
+                    inicio_geradorMem(arqName);
+                    inicio_geradorMem_mif(arqName, higherLine);
+                    exit(EXIT_SUCCESS);
+                }
             }
         }else if(((strcmp(entrada, "line")) == 0) || ((strcmp(entrada, "LINE")) == 0) || ((strcmp(entrada, "Line")) == 0)){
             printf("Linha destino: ");

@@ -9,9 +9,11 @@
 #define LENGTH_PALAVRA 16
 
 //---------------------------------------
+int calcLine(int i, int j);
+void arqTxt(char nomeArq[]);
 int inicializa_matriz();
 void printar_matriz();
-int adicionar_valor(char palavra[], int posicao);
+int adicionar_valor(char palavra[], int posicao, char cmd[], char arg[], int status);
 void retornar_matriz();
 int abrirArq(char nomeArq[]);
 int escrita_arqMem();
@@ -24,6 +26,8 @@ void inicio_geradorMem_mif(char nomeArq[], int higherLine);
 struct codigo{
     char *palavra;
     int status;
+    char *comandoASC;
+    char *arg;
 };
 
 FILE *arq;
@@ -44,8 +48,11 @@ int inicializa_matriz(){
         algoritmo[i] = (struct codigo*)malloc(sizeof(struct codigo) * PALAVRAS_CONJUNTO);
         for(j=0; j<PALAVRAS_CONJUNTO; j++){
             algoritmo[i][j].palavra = (char*)malloc(sizeof(char)*LENGTH_PALAVRA);
+            algoritmo[i][j].comandoASC = (char*)malloc(sizeof(char)*LENGTH_PALAVRA);
+            algoritmo[i][j].arg = (char*)malloc(sizeof(char)*LENGTH_PALAVRA);
             strcpy(algoritmo[i][j].palavra, "0000000000000000\0");   // inicializa a posição com um valor padrão de inicialização
-            algoritmo[i][j].status = 0;   // indica que ainda não houve escrita na posição, evitando sobrescrever algo
+            algoritmo[i][j].status = -1;   // indica que ainda não houve escrita na posição, evitando sobrescrever algo
+            strcpy(algoritmo[i][j].comandoASC, "NOOP");
         }
     }
     printf("Matriz inicializada com sucesso.\n");
@@ -62,7 +69,7 @@ void printar_matriz(){
     }
 }
 
-int adicionar_valor(char palavra[], int posicao){
+int adicionar_valor(char palavra[], int posicao, char cmd[], char arg[], int status){    // status: 0- palavra com argumento; 1- somente argumento (salvar em uma só palavra, não atribuir status); 2- sem argumento
     int tamPalavra = strlen(palavra);
     int posI, posJ;
     if(tamPalavra > 16) return 10; // codigo de erro indicando que a palavra excede o tamanho máximo
@@ -70,8 +77,13 @@ int adicionar_valor(char palavra[], int posicao){
     posI = posicao/4;
     posJ = posicao%4;
     if(algoritmo[posI][posJ].status == 1) return 0; // codigo indicando que já existe valor escrito na posição
-    algoritmo[posI][posJ].status = 1;
+    algoritmo[posI][posJ].status = status;
     strcpy(algoritmo[posI][posJ].palavra, palavra);
+    if(status == 0)     // salvar comando com argumento
+        strcpy(algoritmo[posI][posJ].arg, arg);
+    if((status == 0) || (status == 2))
+        strcpy(algoritmo[posI][posJ].comandoASC, cmd);
+
     return 1;
 }
 
@@ -89,7 +101,7 @@ void inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da s
         system("EXIT_FAILURE");
     status = escrita_arqMem();
     fclose(arq);
-    //exit(EXIT_SUCCESS);
+    arqTxt(nomeArq);
     //return status;
 }
 
@@ -140,7 +152,7 @@ void inicio_geradorMem_mif(char nomeArq[], int higherLine){
         system("EXIT_FAILURE");
     status = escrita_arqMem_mif(higherLine);
     fclose(arq);
-    exit(EXIT_SUCCESS);
+    arqTxt(nomeArq);
     //return status;
 }
 
@@ -202,4 +214,34 @@ int escrita_arqMem_mif(int higherLine){ // converter pra hexadecimal       (deve
     fprintf(arq, "END;\n");
     //----------------------------------------
     return 1;
+}
+// ================================================================================
+// ARQUIVO TXT
+// ================================================================================
+
+
+int calcLine(int i, int j){
+    return i*PALAVRAS_CONJUNTO+j;
+}
+
+void arqTxt(char nomeArq[]){
+    FILE *arqTxt;
+    int i, j, maxI, maxJ=PALAVRAS_CONJUNTO;
+    maxI = MEMORY_SIZE/PALAVRAS_CONJUNTO;
+    if((arqTxt = fopen(nomeArq, "w+")) == NULL)
+        exit(EXIT_FAILURE);
+    for(i=0; i<maxI; i++){
+        for(j=0; j<maxJ; j++){
+            if((algoritmo[i][j].status >= 0) && (algoritmo[i][j].status != 1)){
+                if((algoritmo[i][j].status == 0) || (algoritmo[i][j].status == 2))
+                    fprintf(arqTxt, "%i: %s ", calcLine(i, j), algoritmo[i][j].comandoASC);
+                if(algoritmo[i][j].status == 0)
+                    fprintf(arqTxt, "%s\n", algoritmo[i][j].arg);
+                else
+                    fprintf(arqTxt, "\n");
+            }
+        }
+    }
+    fclose(arqTxt);
+    exit(EXIT_SUCCESS);
 }

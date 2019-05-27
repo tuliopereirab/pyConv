@@ -24,7 +24,7 @@ int escrita_arqMem();
 // gerenciador_matriz.c
 int inicializa_matriz();
 void printar_matriz();
-int adicionar_valor(char palavra[], int posicao);
+int adicionar_valor(char palavra[], int posicao, char cmd[], char arg[], int status);
 void retornar_matriz();
 // ------------------------------
 
@@ -53,7 +53,6 @@ int main(int argc, char **argv){
         }
     }
 
-    printf("op: %i\n", op);
     aguardar_entrada(op);
     //inicio_geradorMem("segundoArq", algoritmo);
 }

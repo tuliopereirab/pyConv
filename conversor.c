@@ -19,6 +19,42 @@ char *busca_variavel(char chave[]);
 //     inicio_conversor(15, "STORE_FAST", "papa");
 // }
 
+char *softwareCode(char cmd[]){
+    if(((strcmp(cmd, "lconst")) == 0) || ((strcmp(cmd, "LOAD_CONST")) == 0))       //LOAD_CONST
+        return "LOAD_CONST";
+    else if(((strcmp(cmd, "lfast")) == 0) || ((strcmp(cmd, "LOAD_FAST")) == 0))    // LOAD_FAST
+        return "LOAD_FAST";
+    else if(((strcmp(cmd, "sfast")) == 0) || ((strcmp(cmd, "STORE_FAST")) == 0))    // STORE_FAST
+        return "STORE_FAST";
+    else if(((strcmp(cmd, "jtrue")) == 0) || ((strcmp(cmd, "POP_JUMP_IF_TRUE")) == 0))    // POP_JUMP_IF_TRUE
+        return "POP_JUMP_IF_TRUE";
+    else if(((strcmp(cmd, "jfalse")) == 0) || ((strcmp(cmd, "POP_JUMP_IF_FALSE")) == 0))   // POP_JUMP_IF_FALSE
+        return "POP_JUMP_IF_FALSE";
+    else if(((strcmp(cmd, "jabs")) == 0) || ((strcmp(cmd, "JUMP_ABSOLUTE")) == 0))     // JUMP_ABSOLUTE
+        return "JUMP_ABSOLUTE";
+    else if(((strcmp(cmd, "jfor")) == 0) || ((strcmp(cmd, "JUMP_FORWARD")) == 0))     // JUMP_FORWARD
+        return "JUMP_FORWARD";
+    else if(((strcmp(cmd, "badd")) == 0) || ((strcmp(cmd, "BINARY_ADD")) == 0))     // BINARY_ADD
+        return "BINARY_ADD";
+    else if(((strcmp(cmd, "bsub")) == 0) || ((strcmp(cmd, "BINARY_SUBTRACT")) == 0))     // BINARY_SUBTRACT
+        return "BINARY_SUBTRACT";
+    else if(((strcmp(cmd, "bmult")) == 0) || ((strcmp(cmd, "BINARY_MULTIPLY")) == 0))    // BINARY_MULTIPLY
+        return "BINARY_MULTIPLY";
+    else if(((strcmp(cmd, "bdiv")) == 0) || ((strcmp(cmd, "BINARY_DIVIDE")) == 0))     // BINARY_DIVIDE
+        return "BINARY_DIVIDE";
+    // else if(((strcmp(cmd, "iadd")) == 0) || ((strcmp(cmd, "INPLACE_ADD")) == 0))     // INPLACE_ADD
+    //     return "INPLACE_ADD";
+    else if(((strcmp(cmd, "cop")) == 0) || ((strcmp(cmd, "COMPARE_OP")) == 0))     // COMPARE_OP
+        return "COMPARE_OP";
+    else if(((strcmp(cmd, "cfunc")) == 0) || ((strcmp(cmd, "CALL_FUNCTION")) == 0))    // CALL_FUNCTION
+        return "CALL_FUNCTION";
+    else if(((strcmp(cmd, "rval")) == 0) || ((strcmp(cmd, "RETURN_VALUE")) == 0))     // RETURN_VALUE
+        return "RETURN_VALUE";
+    else
+        return "ERROR";
+
+}
+
 int inicio_conversor(int posMemoria, char comando[], char argumento[]){
     int status;
     char *codigoComando = verCodigo_comando(comando);

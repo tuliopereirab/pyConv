@@ -10,6 +10,7 @@ void aguardar_entrada(int arqType);
 
 // externas
 void help_init();
+char *softwareCode(char cmd[]);
 void inicio_geradorMem(char nomeArq[]);
 int inicio_conversor(int posMemoria, char comando[], char argumento[]);
 int analise_argumento(char comando[], char argumento[], int line);
@@ -79,28 +80,31 @@ void aguardar_entrada(int arqType){
 }
 
 int gerencia_entrada(int pMemory, char entrada[]){
-    int i, j, newLine, controleEspacos, tamEntrada = strlen(entrada), checkTos, analiseArg;
-    char comando[20], argumento[20];
+    int i, j, z, newLine, controleEspacos, tamEntrada = strlen(entrada), checkTos, analiseArg;
+    char soft_cmd[20], argumento[20];
+    char *comando;
     controleEspacos = 0;
     j=0;
+    z=0;
     for(i=0; i<tamEntrada; i++){
         if(controleEspacos == 0){
             if(entrada[i] == ' '){
-                comando[j] = '\0';
+                soft_cmd[j] = '\0';
                 controleEspacos++;
-                j=0;
             }else
-                comando[j++] = entrada[i];
+                soft_cmd[j++] = entrada[i];
         }else if(controleEspacos == 1){
             if(entrada[i] == ' '){
-                argumento[j] = '\0';
+                argumento[z] = '\0';
                 controleEspacos++;
-                j=0;
             }else
-                argumento[j++] = entrada[i];
+                argumento[z++] = entrada[i];
         }else
             return -1;
     }
+    soft_cmd[j] = '\0';
+
+    comando = softwareCode(soft_cmd);
 
     if(check_comando(comando) == 0)  // comando invalido
         return -4;

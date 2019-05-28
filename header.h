@@ -47,6 +47,7 @@ int inicio_conversor(int posMemoria, char comando[], char argumento[]);
 char* montar_comando(char comando_bin[], char arg_bin[], int usaArg);
 char *verCodigo_comando(char comando[]);
 char* verComparacao(int val);
+char *softwareCode(char cmd[]);
 //------------------------------
 
 // ------------------------------

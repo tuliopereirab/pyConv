@@ -4,7 +4,7 @@
 // #include "sim_main.c"
 #include "sim_memExt.c"
 #include "sim_pilha.c"
-// #include "sim_ula.c"
+#include "sim_ula.c"
 // #include "controle_variaveis.c"
 #include "sim_apoio.c"
 
@@ -30,3 +30,7 @@ int func_init();
 int read_memory(char addr[]);
 int add_memory(char data[], char addr[]);
 int memory_init();
+//----------------------------
+// sim_ula.c
+int ula_arith(int sel);
+int comp_op(int sel);

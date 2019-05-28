@@ -8,7 +8,7 @@
 #define ADDR_WIDTH 12
 
 int add_stack(char data[]);
-int remove_stack();
+int read_stack();
 int pilha_init();
 
 
@@ -24,7 +24,7 @@ int tos=0;
 int pilha_init(){
     int i;
     if((pilha = (Pilha*)malloc(sizeof(Pilha)*MEMORY_SIZE)) == NULL)
-        return -1;
+        return -98;
     for(i=0; i<MEMORY_SIZE; i++){
         pilha[i].data = (char*)malloc(sizeof(char)*DATA_WIDTH);
         strcpy(pilha[i].data, "00000000");
@@ -33,18 +33,20 @@ int pilha_init(){
 }
 
 int add_stack(char data[]){
+    if(strlen(data) != DATA_WIDTH)
+        return -2;          // dado com largura incorreta
+    if((tos+1) >= MEMORY_SIZE)
+        return -5;          // topo atualizado terá valor acima do máximo
     tos++;
-    if(tos >= MEMORY_SIZE)
-        return -1;
     strcpy(pilha[tos].data, data);
     return 0;
 }
-int remove_stack(){
+int read_stack(){
     char data[DATA_WIDTH];
     strcpy(data, pilha[tos].data);
     tos--;
     if(tos < 0)
-        return -1;
+        return -4;
     else
         return bin_to_dec(data);    // retorna o valor decimal do dado binário
 }

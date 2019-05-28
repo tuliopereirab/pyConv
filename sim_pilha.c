@@ -10,6 +10,8 @@
 int add_stack(char data[]);
 int read_stack();
 int pilha_init();
+void changeTos(int newTos);
+int verTos();
 
 
 int bin_to_dec(char bin[]);
@@ -49,4 +51,12 @@ int read_stack(){
         return -4;
     else
         return bin_to_dec(data);    // retorna o valor decimal do dado binário
+}
+
+int verTos(){
+    return tos;
+}
+
+void changeTos(int newTos){
+    tos = newTos;
 }

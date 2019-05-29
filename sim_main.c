@@ -21,6 +21,7 @@ int load_const(char arg[]);
 int memory_init();
 int func_init();
 int pilha_init();
+int check_number(char arg[]);
 
 int simulator(char comando[], char argumento[]);
 

@@ -14,6 +14,7 @@
 // sim_apoio.c
 int bin_to_dec(char bin[]);
 char *dec_to_bin(int n, int tam);
+int check_number(char arg[]);
 //----------------------------
 // sim_pilha.c
 int add_stack(char data[]);

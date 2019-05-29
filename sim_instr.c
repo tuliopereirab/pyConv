@@ -15,6 +15,7 @@ int pc=0;
 // sim_apoio.c
 int bin_to_dec(char bin[]);
 char *dec_to_bin(int n, int tam);
+int check_number(char arg[]);
 //----------------------------
 // sim_pilha.c
 int add_stack(char data[]);
@@ -54,6 +55,10 @@ int verifica_variavel(char variavel[]);
 
 int load_const(char arg[]){
     int argumento, status;
+    if(check_number(arg) != 0){
+        print_error(-1);
+        return -12;
+    }
     if(((argumento = atoi(arg)) < pow(2, DATA_WIDTH)) && (argumento >= 0))
         status = add_stack(dec_to_bin(argumento, DATA_WIDTH));
     else
@@ -104,6 +109,10 @@ int store_fast(char arg[]){
 }
 
 int pop_true(char arg[]){
+    if(check_number(arg) != 0){
+        print_error(-1);
+        return -12;
+    }
     if(regComp < 0){
         print_error(-13);
         return -12;
@@ -119,6 +128,10 @@ int pop_true(char arg[]){
 }
 
 int pop_false(char arg[]){
+    if(check_number(arg) != 0){
+        print_error(-1);
+        return -12;
+    }
     if(regComp < 0){
         print_error(-13);
         return -12;
@@ -134,6 +147,10 @@ int pop_false(char arg[]){
 }
 
 int jump_absolute(char arg[]){
+    if(check_number(arg) != 0){
+        print_error(-1);
+        return -12;
+    }
     if((atoi(arg) >= 0) && (atoi(arg) < pow(2, ADDR_WIDTH))){
         pc = atoi(arg);
         return 0;
@@ -144,6 +161,10 @@ int jump_absolute(char arg[]){
 }
 
 int jump_forward(char arg[]){
+    if(check_number(arg) != 0){
+        print_error(-1);
+        return -12;
+    }
     if(((atoi(arg)+pc) >= 0) && ((atoi(arg)+pc) < pow(2, ADDR_WIDTH))){
         pc = pc + atoi(arg);
         return 0;
@@ -178,6 +199,10 @@ int compare_op(char arg[]){
 
 int call_function(char arg[]){
     int stat;
+    if(check_number(arg) != 0){
+        print_error(-1);
+        return -12;
+    }
     if((atoi(arg)>= pow(2, ADDR_WIDTH)) || (atoi(arg) < 0)){
         print_error(-6);
         return -12;

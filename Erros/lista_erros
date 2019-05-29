@@ -1,4 +1,4 @@
--1:
+-1: argumento contém letras e deveria ser apenas números
 -2: largura de dado incorreta
 -3: largura de endereço incorreta
 -4: 'TOS' ficará negativo

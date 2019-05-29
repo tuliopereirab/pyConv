@@ -12,6 +12,7 @@ int read_stack();
 int pilha_init();
 void changeTos(int newTos);
 int verTos();
+int check_number(char arg[]);
 
 
 int bin_to_dec(char bin[]);

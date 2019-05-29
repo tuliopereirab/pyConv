@@ -10,6 +10,9 @@
 
 void print_error(int code){
     switch(code){
+        case -1:
+            printf("error %i: Argumento contém letras e deveria conter apenas números.\n", code);
+            break;
         case -2:
             printf("error %i: Largura de dado incorreta.\n", code);
             break;

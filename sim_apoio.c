@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <ctype.h>
 
 int bin_to_dec(char bin[]);
 char *dec_to_bin(int n, int tam);
+int check_number(char arg[]);
 
 int bin_to_dec(char bin[]){
 // copiado de https://www.sanfoundry.com/c-program-binary-number-into-decimal/
@@ -42,4 +44,13 @@ char *dec_to_bin(int n, int tam)       // copiado de https://www.programmingsimp
    }
    *(pointer+count) = '\0';
    return pointer;
+}
+
+int check_number(char arg[]){
+    int i, tam = strlen(arg);
+    for(i=0; i<tam; i++){
+        if(isdigit(arg[i]) == 0)
+            return -1;      // não é um número
+    }
+    return 0;
 }

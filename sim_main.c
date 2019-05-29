@@ -22,8 +22,18 @@ int memory_init();
 int func_init();
 int pilha_init();
 
+int simulator(char comando[], char argumento[]);
+
 int main(){
+    char cmd[20], arg[30];
+    int stat;
     init_simulator();
+    while(1){
+        printf("Comando: ");
+        scanf("%s", cmd);
+        scanf("%s", arg);
+        stat = simulator(cmd, arg);
+    }
 }
 
 int init_simulator(){

@@ -47,10 +47,17 @@ char *busca_variavel(char chave[]);
 int adicionar_variavel(char chave[]);
 int verifica_variavel(char variavel[]);
 
+#define MEMORY_SIZE 4096
+#define DATA_WIDTH 8
+#define ADDR_FUNC_WIDTH 8
+#define ADDR_WIDTH 12
+
 int load_const(char arg[]){
     int argumento, status;
-    if(((argumento = atoi(arg)) < 255) && (argumento >= 0))
+    if(((argumento = atoi(arg)) < pow(2, DATA_WIDTH)) && (argumento >= 0))
         status = add_stack(dec_to_bin(argumento, DATA_WIDTH));
+    else
+        status = -2;
     if(status < 0){
         print_error(status);
         return -12;

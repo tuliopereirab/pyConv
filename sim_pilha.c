@@ -45,12 +45,11 @@ int add_stack(char data[]){
 }
 int read_stack(){
     char data[DATA_WIDTH];
+    if((tos-1) < 0)
+        return -4;
     strcpy(data, pilha[tos].data);
     tos--;
-    if(tos < 0)
-        return -4;
-    else
-        return bin_to_dec(data);    // retorna o valor decimal do dado binário
+    return bin_to_dec(data);    // retorna o valor decimal do dado binário
 }
 
 int verTos(){

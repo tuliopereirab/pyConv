@@ -33,10 +33,21 @@ void retornar_matriz();
 void help_inicializacao();
 // ------------------------------
 
+// simulator
+int init_simulator();
 
 int main(int argc, char **argv){
-    int op;
-    inicializa_matriz();       // criação da matriz zerada
+    int op, status;
+    status = inicializa_matriz();       // criação da matriz zerada
+    if(status == 1)
+        status = init_simulator();
+    else{
+        printf("Erro ao inicializar a matriz.\n");
+        exit(EXIT_FAILURE);
+    }
+    if(status < 0)
+        exit(EXIT_FAILURE);
+
     if(argc == 1)
         op = 99;            // ambos
     else{

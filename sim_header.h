@@ -5,7 +5,7 @@
 #include "sim_memExt.c"
 #include "sim_pilha.c"
 #include "sim_ula.c"
-#include "controle_variaveis.c"
+//#include "controle_variaveis.c"
 #include "sim_apoio.c"
 #include "sim_instr.c"
 
@@ -52,10 +52,10 @@ int load_const(char arg[]);
 //---------------------------
 // sim_error.c
 void print_error(int code);
-//---------------------------
-// controle_variaveis.c
-char *decimal_to_binary_addr(int n);
-char *decimal_to_binary_code(int n);
-char *busca_variavel(char chave[]);
-int adicionar_variavel(char chave[]);
-int verifica_variavel(char variavel[]);
+// //---------------------------
+// // controle_variaveis.c
+// char *decimal_to_binary_addr(int n);
+// char *decimal_to_binary_code(int n);
+// char *busca_variavel(char chave[]);
+// int adicionar_variavel(char chave[]);
+// int verifica_variavel(char variavel[]);

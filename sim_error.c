@@ -23,7 +23,7 @@ void print_error(int code){
             printf("error %i: Ponteiro do topo da pilha ultrapassará limite superior.\n\tRetire algo da pilha antes de adicionar algo.\n", code);
             break;
         case -6:
-            printf("error %i: Endereço de memória está fora do intervalo esperado (0 a %.0lf).\n", code, pow(2, ADDR_WIDTH));
+            printf("error %i: Endereço de memória está fora do intervalo esperado (0 a %.0lf).\n", code, pow(2, ADDR_WIDTH)-1);
             break;
         case -7:
             printf("error %i: Ponteiro do topo da pilha de funções ultrapassará limite superior.\n\tExecute 'RETURN_VALUE' antes de utilizar 'CALL_FUNCTION'.\n", code);
@@ -47,10 +47,10 @@ void print_error(int code){
             printf("error %i: Resultado da comparação inválido.\n\tExecute uma comparação antes de um desvio condicional.\n", code);
             break;
         case -14:
-            printf("error %i: Valor do endereço fora do invervalo esperado (0 a %.0lf).\n", code, pow(2, ADDR_WIDTH));
+            printf("error %i: Valor do endereço fora do invervalo esperado (0 a %.0lf).\n", code, pow(2, ADDR_WIDTH)-1);
             break;
         case -15:
-            printf("error %i: Soma entre PC atual e argumento da instrução ultrapassam valor máximo de %.0lf.\n", code, pow(2, ADDR_WIDTH));
+            printf("error %i: Soma entre PC atual e argumento da instrução ultrapassam valor máximo de %.0lf.\n", code, pow(2, ADDR_WIDTH)-1);
             break;
         case -16:
             printf("error %i: Valor de PC ficará acima do máximo suportado.\n", code);

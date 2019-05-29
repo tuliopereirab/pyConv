@@ -122,7 +122,7 @@ int pop_false(char arg[]){
     if(regComp < 0){
         print_error(-13);
         return -12;
-    }else if(regComp == 0){
+    }else if(regComp == 1){
         if((atoi(arg) < pow(2, ADDR_WIDTH)) && (atoi(arg)>=0)){
             pc = atoi(arg);
             return 0;

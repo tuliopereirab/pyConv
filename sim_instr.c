@@ -89,7 +89,7 @@ int store_fast(char arg[]){
         print_error(data);
         return -12;
     }else
-        if((stat = add_memory(dec_to_bin(data, DATA_WIDTH), busca_variavel(arg))) < 0){
+        if((stat = add_memory(dec_to_bin(data, DATA_WIDTH), dec_to_bin(atoi(busca_variavel(arg))), ADDR_WIDTH)) < 0){
             print_error(stat);
             return -12;
         }else{

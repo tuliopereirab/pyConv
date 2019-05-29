@@ -10,7 +10,7 @@
 typedef struct _memory{
     char *data;
 }memory;
-memory *mem = NULL;
+memory *memExt = NULL;
 
 int read_memory(char addr[]);
 int add_memory(char data[], char addr[]);
@@ -20,11 +20,11 @@ int bin_to_dec(char bin[]);
 
 int memory_init(){
     int i;
-    if((mem = (memory*)malloc(sizeof(memory)*MEMORY_SIZE)) == NULL)
+    if((memExt = (memory*)malloc(sizeof(memory)*MEMORY_SIZE)) == NULL)
         return -99;
     for(i=0; i<MEMORY_SIZE; i++){
-        mem[i].data = (char*)malloc(sizeof(memory)*DATA_WIDTH);
-        strcpy(mem[i].data, "00000000");
+        memExt[i].data = (char*)malloc(sizeof(memory)*DATA_WIDTH);
+        strcpy(memExt[i].data, "00000000");
     }
     return 0;
 }
@@ -36,7 +36,7 @@ int add_memory(char data[], char addr[]){
         return -3;          // endereço com largura incorreta
     if(bin_to_dec(addr) >= MEMORY_SIZE)
         return -6;          // endereço maior que o limite máximo
-    strcpy(mem[bin_to_dec(addr)].data, data);
+    strcpy(memExt[bin_to_dec(addr)].data, data);
     return 0;
 }
 
@@ -44,5 +44,5 @@ int read_memory(char addr[]){
     if(bin_to_dec(addr) >= MEMORY_SIZE)
         return -1;
     else
-        return bin_to_dec(mem[bin_to_dec(addr)].data);
+        return bin_to_dec(memExt[bin_to_dec(addr)].data);
 }

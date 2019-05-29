@@ -42,7 +42,7 @@ int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div
         default:
             add_stack(dec_to_bin(result=op1+op2, DATA_WIDTH));
     }
-    if((result>255) || (result<0))
+    if((result>pow(2,DATA_WIDTH)) || (result<0))
         return -10;
     else
         return 0;

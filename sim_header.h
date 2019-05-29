@@ -1,12 +1,13 @@
 #include <stdio.h>
-// #include "sim_error.c"
+#include "sim_error.c"
 #include "sim_function.c"
-// #include "sim_main.c"
+#include "sim_main.c"
 #include "sim_memExt.c"
 #include "sim_pilha.c"
 #include "sim_ula.c"
-// #include "controle_variaveis.c"
+#include "controle_variaveis.c"
 #include "sim_apoio.c"
+#include "sim_instr.c"
 
 
 // ---------------------------
@@ -34,3 +35,26 @@ int memory_init();
 // sim_ula.c
 int ula_arith(int sel);
 int comp_op(int sel);
+//----------------------------
+// sim_instr.c
+int ret_value();
+int call_function(char arg[]);
+int compare_op(char arg[]);
+int binary(int sel);
+int jump_forward(char arg[]);
+int jump_absolute(char arg[]);
+int pop_false(char arg[]);
+int pop_true(char arg[]);
+int store_fast(char arg[]);
+int load_fast(char arg[]);
+int load_const(char arg[]);
+//---------------------------
+// sim_error.c
+void print_error(int code);
+//---------------------------
+// controle_variaveis.c
+char *decimal_to_binary_addr(int n);
+char *decimal_to_binary_code(int n);
+char *busca_variavel(char chave[]);
+int adicionar_variavel(char chave[]);
+int verifica_variavel(char variavel[]);

@@ -157,7 +157,7 @@ int binary(int sel){
     int stat;
     if((stat = ula_arith(sel)) < 0){
         print_error(stat);
-        return -12;
+        return -20;     // retorna que ocorreu um warning
     }else{
         pc++;
         return 0;

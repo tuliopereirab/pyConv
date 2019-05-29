@@ -1,0 +1,33 @@
+sim_pilha:
+    pilha_init:
+        -98: erro ao alocar a pilha
+    add_stack:
+        -5: 'TOS' ultrapassará seu valor máximo
+        -2: largura do dado incorreta
+    read_stack:
+        -4: 'TOS' ficará negativo
+
+sim_memExt:
+    memory_init:
+        -99: erro ao alocar memória
+    add_memory:
+        -6: endereço com valor superior ao número de conjuntos da memória
+        -2: largura do dado incorreta
+        -3: largura do endereço incorreta
+    read_memory:
+        -3: largura de endereço incorreta
+
+sim_function:
+    func_init:
+        -97: erro ao alocar pilha de funções
+    call_func:
+        -7: 'TOS_funcao' ultrapassará valor máximo
+    return_value:
+        -8: 'TOS_funcao' ficará negativo
+
+sim_ula:
+    ula_arith:
+        -9: pilha não suporta duas leituras, 'TOS' ficará negativo
+        -10: overflow de resultado
+        -9: pilha não suporta duas leituras, 'TOS' ficará negativo
+    comp_op:

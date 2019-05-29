@@ -38,7 +38,7 @@ void print_error(int code){
             printf("warning %i: Resultando com Overflow.\n", code);
             break;
         case -11:
-            printf("error %i: Instrução inválida.\n", code);
+            printf("error %i: Variável inexistente.\n\tUtilize 'STORE_FAST' para criá-la.\n", code);
             break;
         case -12:
             printf("error %i: Algum erro foi encontrado no simulador. Instrução não executada.\n", code);
@@ -54,6 +54,9 @@ void print_error(int code){
             break;
         case -16:
             printf("error %i: Valor de PC ficará acima do máximo suportado.\n", code);
+            break;
+        case -17:
+            printf("error %i: Instrução inválida.\n", code);
             break;
         case -97:
             printf("error %i: Erro ao alocar pilha de funções.\n", code);

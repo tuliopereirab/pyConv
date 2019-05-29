@@ -69,8 +69,8 @@ int load_const(char arg[]){
 
 int load_fast(char arg[]){
     int data, stat;
-    if((verifica_variavel(arg)) == 0)  // verifica se existe
-        if((data = read_memory(busca_variavel(arg))) < 0){
+    if((stat = verifica_variavel(arg)) == 0){  // verifica se existe
+        if((data = read_memory(dec_to_bin(atoi(busca_variavel(arg)), ADDR_WIDTH))) < 0){
             print_error(data);
             return -12;
         }else
@@ -81,6 +81,11 @@ int load_fast(char arg[]){
                 pc = pc+2;
                 return 0;
             }
+    }else{
+        printf("var não existe: %i\n", stat);
+        print_error(stat);
+        return -12;
+    }
 }
 
 int store_fast(char arg[]){

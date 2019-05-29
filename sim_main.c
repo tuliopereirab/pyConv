@@ -33,6 +33,7 @@ int main(){
         scanf("%s", cmd);
         scanf("%s", arg);
         stat = simulator(cmd, arg);
+        printf("Status: %i\n", stat);
     }
 }
 
@@ -79,5 +80,5 @@ int simulator(char comando[], char argumento[]){    // op binary: 0:add; 1:sub; 
     else if((strcmp(comando, "RETURN_VALUE")) == 0)
         return ret_value();
     else
-        return -11;
+        return -17;
 }

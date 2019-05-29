@@ -42,7 +42,7 @@ int func_init(){
 }
 
 int call_func(char pc[], char tos[]){
-    if((tosFunc+1) < pow(2, ADDR_FUNC_WIDTH))
+    if((tosFunc+1) >= pow(2, ADDR_FUNC_WIDTH))
         return -7;
     tosFunc++;
     strcpy(func[tosFunc].TOSreturn, tos);
@@ -56,6 +56,8 @@ int return_value(){             // retorna o valor de PC
     char *TOSreturn, *PCreturn;
     if((tosFunc-1) < 0)
         return -8;
+    TOSreturn = (char*)malloc(sizeof(char)*ADDR_WIDTH);
+    PCreturn = (char*)malloc(sizeof(char)*ADDR_WIDTH);
     strcpy(TOSreturn, func[tosFunc].TOSreturn);
     strcpy(PCreturn, func[tosFunc].PCreturn);
     tosFunc--;

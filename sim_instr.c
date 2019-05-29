@@ -202,5 +202,6 @@ int ret_value(){
         return -12;
     }else{
         pc = newPc;
+        return 0;
     }
 }

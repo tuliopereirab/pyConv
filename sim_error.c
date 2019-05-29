@@ -58,6 +58,9 @@ void print_error(int code){
         case -17:
             printf("error %i: Instrução inválida.\n", code);
             break;
+        case -18:
+            printf("error %i: Opção da instrução 'COMPARE_OP' inválida.\n\tUtilize: 0-> igual, 1-> menor que, 2-> maior que.\n", code);
+            break;
         case -97:
             printf("error %i: Erro ao alocar pilha de funções.\n", code);
             break;

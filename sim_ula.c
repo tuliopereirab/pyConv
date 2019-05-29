@@ -52,6 +52,8 @@ int comp_op(int sel){   // 0:igual, 1:menor, 2:maior
     int op1, op2, result;
     if(verTos() <= 1)
         return -9;
+    if((sel < 0) || (sel > 2))      // seletor inválido
+        return -18;
     op2 = read_stack();
     op1 = read_stack();
     switch(sel){
@@ -74,6 +76,6 @@ int comp_op(int sel){   // 0:igual, 1:menor, 2:maior
                 return 0;
             break;
         default:
-            return 0;
+            return -18;
     }
 }

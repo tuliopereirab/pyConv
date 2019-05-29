@@ -8,13 +8,14 @@
 -8: 'TOS_funcao' ficará negativo
 -9: pilha não suporta duas leituras, 'TOS' ficará negativo
 -10: overflow de resultado
--11: variável inexistente 
+-11: variável inexistente
 -12: retorno final do simulador indicando que algum erro aconteceu
 -13: regComp com valor inválido para comparação
 -14: valor do endereço está fora do intervalo
 -15: a soma de PC com o delta (argumento) está fora do invervalo esperado
 -16: valor de PC ficará acima do máximo
 -17: instrução inválida
+-18: opção de comparação (COMPARE_OP) inválida
 
 -20: retorno final do simulador é um WARNING (instrução é executada, porém algo não correu 100% certo)
 

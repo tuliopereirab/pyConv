@@ -87,6 +87,21 @@ int adicionar_valor(char palavra[], int posicao, char cmd[], char arg[], int sta
     return 1;
 }
 
+int check_simulador(){
+    int status, i, j, maxI, maxJ=PALAVRAS_CONJUNTO;
+    maxI = MEMORY_SIZE/PALAVRAS_CONJUNTO;
+    for(i=0; i<maxI; i++){
+        for(j=0; j<maxJ; j++){
+            if(status < 0)
+                return status;
+            if(algoritmo[i][j].status == 0)
+                status = simulator(algoritmo[i][j].comandoASC, algoritmo[i][j].arg); // comando + argumento
+            else if(algoritmo[i][j].status == 2)
+                status = simulator(algoritmo[i][j].comandoASC, ""); // comando sem argumento
+        }
+    }
+    return status;
+}
 
 // ------------------------------------------------------------------------------
 //       ||||           ||||          ||||

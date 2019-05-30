@@ -37,6 +37,11 @@ void aguardar_entrada(int arqType){
         if(((strcmp(entrada, "quit")) == 0) || ((strcmp(entrada, "QUIT")) == 0) || ((strcmp(entrada, "Quit")) == 0)){
             statusQuit = 1;
             if(line>0){
+                if(check_simulador() < 0){
+                    printf("-12: O algoritmo escrito não pode ser executado na arquitetura.\n");
+                    exit(EXIT_SUCCESS);
+                }else
+                    printf("Algoritmo passou pelo teste do simulador.\n");
                 printf("Nome do arquivo: ");
                 scanf("%s", &arqName);
                 __fpurge(stdin);

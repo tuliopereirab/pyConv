@@ -140,9 +140,9 @@ void help_returnValue(){
 }
 
 void help_inicializacao(){
-    printf("----------------------------------------\n\t\tHELP----------------------------------------\n");
+    printf("-----------------------------------\n\tHELP\n-----------------------------------\n");
     printf("Gerar apenas .mem: \t './Compilador -mem'\n");
     printf("Gerar apenas .mif: \t './Compilador -mif'\n");
-    printf("Gerar ambos: \t './Compilador'\n");
+    printf("Gerar ambos: \t\t './Compilador'\n");
     printf("----------------------------------------\n");
 }

@@ -125,7 +125,7 @@ void inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da s
     status = escrita_arqMem();
     fclose(arq);
     arqTxt(nomeArq);
-    //return status;
+    return status;
 }
 
 int abrirArq(char nomeArq[]){
@@ -266,5 +266,4 @@ void arqTxt(char nomeArq[]){
         }
     }
     fclose(arqTxt);
-    exit(EXIT_SUCCESS);
 }

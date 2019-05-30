@@ -53,7 +53,7 @@ int main(int argc, char **argv){
     else{
         if((strcmp(argv[1], "-mif")) == 0)
             op = 1;         // arq .mif
-        if((strcmp(argv[1], "-mem")) == 0)
+        else if((strcmp(argv[1], "-mem")) == 0)
             op = 0;         // arq .mem
         else if(((strcmp(argv[1], "-h")) == 0) || ((strcmp(argv[1], "-help")) == 0)){
             help_inicializacao();

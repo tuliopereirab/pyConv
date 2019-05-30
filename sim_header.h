@@ -5,9 +5,9 @@
 #include "sim_memExt.c"
 #include "sim_pilha.c"
 #include "sim_ula.c"
-//#include "controle_variaveis.c"
 #include "sim_apoio.c"
 #include "sim_instr.c"
+//#include "controle_variaveis.c"
 
 
 // ---------------------------
@@ -53,6 +53,11 @@ int load_const(char arg[]);
 //---------------------------
 // sim_error.c
 void print_error(int code);
+// //---------------------------
+//---------------------------
+// sim_main.c
+int init_simulator();
+int simulator(char comando[], char argumento[]);
 // //---------------------------
 // // // controle_variaveis.c
 // char *decimal_to_binary_addr(int n);

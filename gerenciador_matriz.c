@@ -90,22 +90,24 @@ int adicionar_valor(char palavra[], int posicao, char cmd[], char arg[], int sta
 int check_simulador(){
     int status=0, i, j, maxI, maxJ=PALAVRAS_CONJUNTO, lastPC=99, atualPC = 0;
     maxI = MEMORY_SIZE/PALAVRAS_CONJUNTO;
-    while((atualPC != lastPC) && (status > 0)){
+    while((atualPC != lastPC) && (status >= 0)){
         i=atualPC/4;
         j=atualPC%4;
-        printf("Executando linha: %i\tÚltima linha: %i.\n", atualPC, lastPC);
+        //printf("Executando linha: %i\tÚltima linha: %i.\n", atualPC, lastPC);
         if(algoritmo[i][j].status == 0)
             status = simulator(algoritmo[i][j].comandoASC, algoritmo[i][j].arg); // comando + argumento
-        else if(algoritmo[i][j].status == 2)
+        else if(algoritmo[i][j].status == 2){
             status = simulator(algoritmo[i][j].comandoASC, ""); // comando sem argumento
         }
+        //printf("Status: %i\n", status);
         if(status < 0)
-            return status;
+            return atualPC;     // retorna a linha que contém erro       
         else{
             lastPC = atualPC;
             atualPC = status;
         }
-    return status;
+    }
+    return 0;       // retorna que tudo deu certo
 }
 
 // ------------------------------------------------------------------------------

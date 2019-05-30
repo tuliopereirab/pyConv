@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int init_simulator();
+
 
 void print_error(int code);
 
@@ -23,6 +23,7 @@ int func_init();
 int pilha_init();
 int check_number(char arg[]);
 
+int init_simulator();
 int simulator(char comando[], char argumento[]);
 
 //  int main(){
@@ -52,6 +53,7 @@ int init_simulator(){
 }
 
 int simulator(char comando[], char argumento[]){    // op binary: 0:add; 1:sub; 2:mult; 3:div
+    //printf("Recebido: %s\t%s\n", comando, argumento);
     if((strcmp(comando, "LOAD_CONST")) == 0)
         return load_const(argumento);
     else if((strcmp(comando, "LOAD_FAST")) == 0)

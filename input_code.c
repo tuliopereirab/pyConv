@@ -28,6 +28,7 @@ void aguardar_entrada(int arqType){
     char arqName[20];
     char entrada[100];
     char commandHelp[50];
+    int pcProblem;
     //arqName = (char*)malloc(sizeof(char)*20);
     printf("Inicializado, aguardando entradas: \n");
     while(statusQuit!=1){
@@ -37,8 +38,9 @@ void aguardar_entrada(int arqType){
         if(((strcmp(entrada, "quit")) == 0) || ((strcmp(entrada, "QUIT")) == 0) || ((strcmp(entrada, "Quit")) == 0)){
             statusQuit = 1;
             if(line>0){
-                if(check_simulador() < 0){
+                if((pcProblem = check_simulador()) != 0){
                     printf("-12: O algoritmo escrito não pode ser executado na arquitetura.\n");
+                    printf("A posição de memória com problema é: %i\n", pcProblem);
                     exit(EXIT_SUCCESS);
                 }else
                     printf("Algoritmo passou pelo teste do simulador.\n");

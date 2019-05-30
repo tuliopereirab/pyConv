@@ -21,6 +21,7 @@ void inicio_geradorMem(char nomeArq[]);
 int abrirArq_mif(char nomeArq[]);
 int escrita_arqMem_mif(int higherLine);
 void inicio_geradorMem_mif(char nomeArq[], int higherLine);
+int simulator(char comando[], char argumento[]);
 //---------------------------------------
 
 struct codigo{
@@ -101,7 +102,7 @@ int check_simulador(){
         }
         //printf("Status: %i\n", status);
         if(status < 0)
-            return atualPC;     // retorna a linha que contém erro       
+            return atualPC;     // retorna a linha que contém erro
         else{
             lastPC = atualPC;
             atualPC = status;

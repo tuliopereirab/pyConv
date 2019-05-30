@@ -12,6 +12,8 @@
 // sim_apoio.c
 int bin_to_dec(char bin[]);
 char *dec_to_bin(int n, int tam);
+char *bitwise_op(char op1[], char op2[], int data_width, int sel);
+char *bitwise_not(char op[], int data_width);
 //----------------------------
 // sim_pilha.c
 int add_stack(char data[]);
@@ -19,15 +21,14 @@ int read_stack();
 int pilha_init();
 void changeTos(int newTos);
 int verTos();
-char *bitwise_op(char op1[], char op2[], int data_width, int sel);
 
-
-int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div, 4=and, 5=or, 6=xor
+int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div, 4=and, 5=or, 6=xor, 7=not
     int op1, op2, result;
     if(verTos() <= 1)
         return -9;
     op2 = read_stack();
-    op1 = read_stack();
+    if(sel != 7)            // indica que não é not
+        op1 = read_stack();
     switch(sel){
         case 0:
             add_stack(dec_to_bin(result=op1+op2, DATA_WIDTH));
@@ -49,6 +50,9 @@ int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div, 4=and, 5=or, 6=xor
             break;
         case 6:
             add_stack(bitwise_op(dec_to_bin(op2, DATA_WIDTH), dec_to_bin(op1, DATA_WIDTH), DATA_WIDTH, sel));
+            break;
+        case 7:
+            add_stack(bitwise_not(dec_to_bin(op2, DATA_WIDTH), DATA_WIDTH));
             break;
         default:
             add_stack(dec_to_bin(result=op1+op2, DATA_WIDTH));

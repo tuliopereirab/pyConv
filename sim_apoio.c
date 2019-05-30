@@ -8,7 +8,7 @@ int bin_to_dec(char bin[]);
 char *dec_to_bin(int n, int tam);
 int check_number(char arg[]);
 char *bitwise_op(char op1[], char op2[], int data_width, int sel);
-
+char *bitwise_not(char op[], int data_width);
 
 int bin_to_dec(char bin[]){
     // copiado de https://www.sanfoundry.com/c-program-binary-number-into-decimal/
@@ -89,5 +89,16 @@ char *bitwise_op(char op1[], char op2[], int data_width, int sel){
                     result[i] = '0';
         }
     }
+    return result;
+}
+
+char *bitwise_not(char op[], int data_width){
+    int i;
+    char *result = (char*)malloc(sizeof(char)*data_width);
+    for(i=0; i<data_width; i++)
+        if(op[i] == '0')
+            result[i] = '1';
+        else
+            result[i] = '0';
     return result;
 }

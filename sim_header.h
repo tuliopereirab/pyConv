@@ -16,6 +16,7 @@ int bin_to_dec(char bin[]);
 char *dec_to_bin(int n, int tam);
 int check_number(char arg[]);
 char *bitwise_op(char op1[], char op2[], int data_width, int sel);
+char *bitwise_not(char op[], int data_width);
 //----------------------------
 // sim_pilha.c
 int add_stack(char data[]);

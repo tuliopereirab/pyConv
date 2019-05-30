@@ -76,6 +76,12 @@ int check_argumento(char comando[]){
         return 0;  // indica que não tem erro, já que não precisa de argumento
     else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
         return 0;  // indica que não tem erro, já que não precisa de argumento
+    else if((strcmp(comando, "BINARY_AND")) == 0)
+        return 0;  // indica que não tem erro, já que não precisa de argumento
+    else if((strcmp(comando, "BINARY_OR")) == 0)
+        return 0;  // indica que não tem erro, já que não precisa de argumento
+    else if((strcmp(comando, "BINARY_XOR")) == 0)
+        return 0;  // indica que não tem erro, já que não precisa de argumento
     else if((strcmp(comando, "INPLACE_ADD")) == 0)
         return 0;  // indica que não tem erro, já que não precisa de argumento
     else if((strcmp(comando, "RETURN_VALUE")) == 0)
@@ -100,6 +106,12 @@ int check_comando(char comando[]){
     else if((strcmp(comando, "BINARY_MULTIPLY")) == 0)
         return 1;
     else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
+        return 1;
+    else if((strcmp(comando, "BINARY_AND")) == 0)
+        return 1;
+    else if((strcmp(comando, "BINARY_OR")) == 0)
+        return 1;
+    else if((strcmp(comando, "BINARY_XOR")) == 0)
         return 1;
     else if((strcmp(comando, "INPLACE_ADD")) == 0)
         return 1;
@@ -166,8 +178,25 @@ int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
         else{
             tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
             return 0;
-        }
-    else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
+        }else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }else if((strcmp(comando, "BINARY_AND")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }else if((strcmp(comando, "BINARY_OR")) == 0)
+        if(tos_index <= 1)
+            return -5;
+        else{
+            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            return 0;
+        }else if((strcmp(comando, "BINARY_XOR")) == 0)
         if(tos_index <= 1)
             return -5;
         else{

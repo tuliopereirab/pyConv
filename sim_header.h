@@ -15,6 +15,7 @@
 int bin_to_dec(char bin[]);
 char *dec_to_bin(int n, int tam);
 int check_number(char arg[]);
+char *bitwise_op(char op1[], char op2[], int data_width, int sel);
 //----------------------------
 // sim_pilha.c
 int add_stack(char data[]);
@@ -53,7 +54,7 @@ int load_const(char arg[]);
 // sim_error.c
 void print_error(int code);
 // //---------------------------
-// // controle_variaveis.c
+// // // controle_variaveis.c
 // char *decimal_to_binary_addr(int n);
 // char *decimal_to_binary_code(int n);
 // char *busca_variavel(char chave[]);

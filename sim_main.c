@@ -25,17 +25,17 @@ int check_number(char arg[]);
 
 int simulator(char comando[], char argumento[]);
 
-// int main(){
-//     char cmd[20], arg[30];
-//     int stat;
-//     init_simulator();
-//     while(1){
-//         printf("Comando: ");
-//         scanf("%s", cmd);
-//         scanf("%s", arg);
-//         stat = simulator(cmd, arg);
-//         printf("Status: %i\n", stat);
-//     }
+//  int main(){
+//      char cmd[20], arg[30];
+//      int stat;
+//  init_simulator();
+//      while(1){
+//          printf("Comando: ");
+//          scanf("%s", cmd);
+//          scanf("%s", arg);
+//          stat = simulator(cmd, arg);
+//          printf("Status: %i\n", stat);
+//      }
 // }
 
 int init_simulator(){
@@ -74,6 +74,12 @@ int simulator(char comando[], char argumento[]){    // op binary: 0:add; 1:sub; 
         return binary(2);
     else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
         return binary(3);
+    else if((strcmp(comando, "BINARY_AND")) == 0)
+        return binary(4);
+    else if((strcmp(comando, "BINARY_OR")) == 0)
+        return binary(5);
+    else if((strcmp(comando, "BINARY_XOR")) == 0)
+        return binary(6);
     else if((strcmp(comando, "COMPARE_OP")) == 0)
         return compare_op(argumento);
     else if((strcmp(comando, "CALL_FUNCTION")) == 0)

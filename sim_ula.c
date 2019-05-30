@@ -19,8 +19,10 @@ int read_stack();
 int pilha_init();
 void changeTos(int newTos);
 int verTos();
+char *bitwise_op(char op1[], char op2[], int data_width, int sel);
 
-int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div
+
+int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div, 4=and, 5=or, 6=xor
     int op1, op2, result;
     if(verTos() <= 1)
         return -9;
@@ -39,10 +41,19 @@ int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div
         case 3:
             add_stack(dec_to_bin(result=op1/op2, DATA_WIDTH));
             break;
+        case 4:
+            add_stack(bitwise_op(dec_to_bin(op2, DATA_WIDTH), dec_to_bin(op1, DATA_WIDTH), DATA_WIDTH, sel));
+            break;
+        case 5:
+            add_stack(bitwise_op(dec_to_bin(op2, DATA_WIDTH), dec_to_bin(op1, DATA_WIDTH), DATA_WIDTH, sel));
+            break;
+        case 6:
+            add_stack(bitwise_op(dec_to_bin(op2, DATA_WIDTH), dec_to_bin(op1, DATA_WIDTH), DATA_WIDTH, sel));
+            break;
         default:
             add_stack(dec_to_bin(result=op1+op2, DATA_WIDTH));
     }
-    if((result>pow(2,DATA_WIDTH)) || (result<0))
+    if(((result>pow(2,DATA_WIDTH)) || (result<0)) && (sel < 4))
         return -10;
     else
         return 0;

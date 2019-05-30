@@ -42,6 +42,12 @@ char *softwareCode(char cmd[]){
         return "BINARY_MULTIPLY";
     else if(((strcmp(cmd, "bdiv")) == 0) || ((strcmp(cmd, "BINARY_DIVIDE")) == 0))     // BINARY_DIVIDE
         return "BINARY_DIVIDE";
+    else if(((strcmp(cmd, "band")) == 0) || ((strcmp(cmd, "BINARY_AND")) == 0))     // BINARY_DIVIDE
+        return "BINARY_AND";
+    else if(((strcmp(cmd, "bor")) == 0) || ((strcmp(cmd, "BINARY_OR")) == 0))     // BINARY_DIVIDE
+        return "BINARY_OR";
+    else if(((strcmp(cmd, "bxor")) == 0) || ((strcmp(cmd, "BINARY_XOR")) == 0))     // BINARY_DIVIDE
+        return "BINARY_XOR";
     // else if(((strcmp(cmd, "iadd")) == 0) || ((strcmp(cmd, "INPLACE_ADD")) == 0))     // INPLACE_ADD
     //     return "INPLACE_ADD";
     else if(((strcmp(cmd, "cop")) == 0) || ((strcmp(cmd, "COMPARE_OP")) == 0))     // COMPARE_OP
@@ -127,6 +133,18 @@ int inicio_conversor(int posMemoria, char comando[], char argumento[]){
         arg_binary = NULL;   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
         status = adicionar_valor(comandoCompleto, posMemoria, comando, argumento, 2);
+    }else if((strcmp(comando, "BINARY_AND")) == 0){
+        arg_binary = NULL;   // converte o valor decimal pra binario
+        comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
+        status = adicionar_valor(comandoCompleto, posMemoria, comando, argumento, 2);
+    }else if((strcmp(comando, "BINARY_OR")) == 0){
+        arg_binary = NULL;   // converte o valor decimal pra binario
+        comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
+        status = adicionar_valor(comandoCompleto, posMemoria, comando, argumento, 2);
+    }else if((strcmp(comando, "BINARY_XOR")) == 0){
+        arg_binary = NULL;   // converte o valor decimal pra binario
+        comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
+        status = adicionar_valor(comandoCompleto, posMemoria, comando, argumento, 2);
     }else if((strcmp(comando, "INPLACE_ADD")) == 0){
         arg_binary = NULL;   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 0);
@@ -165,7 +183,7 @@ char* montar_comando(char comando_bin[], char arg_bin[], int usaArg){       // u
 
 char *verCodigo_comando(char comando[]){
     char *load_const, *load_fast, *store_fast, *load_global;
-    char *binary_add, *binary_subtract, *binary_multiply, *binary_divide, *inplace_add;
+    char *binary_add, *binary_subtract, *binary_multiply, *binary_divide, *binary_and, *binary_or, *binary_xor, *inplace_add;
     char *pop_jump_if_false, *pop_jump_if_true, *jump_forward, *jump_absolute;
     char *compare_op, *call_function, *return_value;
 
@@ -177,6 +195,9 @@ char *verCodigo_comando(char comando[]){
     binary_subtract = (char*)malloc(sizeof(char)*8);
     binary_multiply = (char*)malloc(sizeof(char)*8);
     binary_divide = (char*)malloc(sizeof(char)*8);
+    binary_and = (char*)malloc(sizeof(char)*8);
+    binary_or = (char*)malloc(sizeof(char)*8);
+    binary_xor = (char*)malloc(sizeof(char)*8);
     inplace_add = (char*)malloc(sizeof(char)*8);
     pop_jump_if_true = (char*)malloc(sizeof(char)*8);
     pop_jump_if_false = (char*)malloc(sizeof(char)*8);
@@ -199,6 +220,9 @@ char *verCodigo_comando(char comando[]){
     strcpy(binary_subtract, "00100001");
     strcpy(binary_multiply, "00100010");
     strcpy(binary_divide, "00100011");
+    strcpy(binary_and, "00101101");
+    strcpy(binary_or, "00101110");
+    strcpy(binary_xor, "00101111");
     strcpy(inplace_add, "00101000");
     strcpy(call_function, "01100000");
     strcpy(return_value, "01100001");
@@ -220,6 +244,12 @@ char *verCodigo_comando(char comando[]){
         return binary_multiply;
     else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
         return binary_divide;
+    else if((strcmp(comando, "BINARY_AND")) == 0)
+        return binary_and;
+    else if((strcmp(comando, "BINARY_OR")) == 0)
+        return binary_or;
+    else if((strcmp(comando, "BINARY_XOR")) == 0)
+        return binary_xor;
     else if((strcmp(comando, "INPLACE_ADD")) == 0)
         return inplace_add;
     else if((strcmp(comando, "POP_JUMP_IF_FALSE")) == 0)

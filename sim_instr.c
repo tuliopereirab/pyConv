@@ -53,6 +53,7 @@ int verifica_variavel(char variavel[]);
 #define ADDR_FUNC_WIDTH 8
 #define ADDR_WIDTH 12
 
+
 int load_const(char arg[]){
     int argumento, status;
     if(check_number(arg) != 0){
@@ -68,7 +69,7 @@ int load_const(char arg[]){
         return -12;
     }else{
         pc++;
-        return 0;
+        return pc;
     }
 }
 
@@ -84,7 +85,7 @@ int load_fast(char arg[]){
                 return -12;
             }else{
                 pc = pc+2;
-                return 0;
+                return pc;
             }
     }else{
         printf("var não existe: %i\n", stat);
@@ -104,7 +105,7 @@ int store_fast(char arg[]){
             return -12;
         }else{
             pc = pc+2;
-            return 0;
+            return pc;
         }
 }
 
@@ -119,7 +120,7 @@ int pop_true(char arg[]){
     }else if(regComp == 1){
         if((atoi(arg) < pow(2, ADDR_WIDTH)) && (atoi(arg)>=0)){
             pc = atoi(arg);
-            return 0;
+            return pc;
         }else{
             print_error(-14);
             return -12;
@@ -138,7 +139,7 @@ int pop_false(char arg[]){
     }else if(regComp == 1){
         if((atoi(arg) < pow(2, ADDR_WIDTH)) && (atoi(arg)>=0)){
             pc = atoi(arg);
-            return 0;
+            return pc;
         }else{
             print_error(-14);
             return -12;
@@ -153,7 +154,7 @@ int jump_absolute(char arg[]){
     }
     if((atoi(arg) >= 0) && (atoi(arg) < pow(2, ADDR_WIDTH))){
         pc = atoi(arg);
-        return 0;
+        return pc;
     }else{
         print_error(-14);
         return -12;
@@ -167,7 +168,7 @@ int jump_forward(char arg[]){
     }
     if(((atoi(arg)+pc) >= 0) && ((atoi(arg)+pc) < pow(2, ADDR_WIDTH))){
         pc = pc + atoi(arg);
-        return 0;
+        return pc;
     }else{
         print_error(-14);
         return -12;
@@ -181,7 +182,7 @@ int binary(int sel){
         return -20;     // retorna que ocorreu um warning
     }else{
         pc++;
-        return 0;
+        return pc;
     }
 }
 
@@ -193,7 +194,7 @@ int compare_op(char arg[]){
     }else{
         pc++;
         regComp = comp;
-        return 0;
+        return pc;
     }
 }
 
@@ -216,7 +217,7 @@ int call_function(char arg[]){
         return -12;
     }else{
         pc = atoi(arg);
-        return 0;
+        return pc;
     }
 }
 
@@ -227,6 +228,6 @@ int ret_value(){
         return -12;
     }else{
         pc = newPc;
-        return 0;
+        return pc;
     }
 }

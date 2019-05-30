@@ -88,18 +88,23 @@ int adicionar_valor(char palavra[], int posicao, char cmd[], char arg[], int sta
 }
 
 int check_simulador(){
-    int status, i, j, maxI, maxJ=PALAVRAS_CONJUNTO;
+    int status=0, i, j, maxI, maxJ=PALAVRAS_CONJUNTO, lastPC=99, atualPC = 0;
     maxI = MEMORY_SIZE/PALAVRAS_CONJUNTO;
-    for(i=0; i<maxI; i++){
-        for(j=0; j<maxJ; j++){
-            if(status < 0)
-                return status;
-            if(algoritmo[i][j].status == 0)
-                status = simulator(algoritmo[i][j].comandoASC, algoritmo[i][j].arg); // comando + argumento
-            else if(algoritmo[i][j].status == 2)
-                status = simulator(algoritmo[i][j].comandoASC, ""); // comando sem argumento
+    while((atualPC != lastPC) && (status > 0)){
+        i=atualPC/4;
+        j=atualPC%4;
+        printf("Executando linha: %i\tÚltima linha: %i.\n", atualPC, lastPC);
+        if(algoritmo[i][j].status == 0)
+            status = simulator(algoritmo[i][j].comandoASC, algoritmo[i][j].arg); // comando + argumento
+        else if(algoritmo[i][j].status == 2)
+            status = simulator(algoritmo[i][j].comandoASC, ""); // comando sem argumento
         }
-    }
+        if(status < 0)
+            return status;
+        else{
+            lastPC = atualPC;
+            atualPC = status;
+        }
     return status;
 }
 

@@ -52,7 +52,7 @@ int call_func(char pc[], char tos[]){
 
 int return_value(){             // retorna o valor de PC
     int dataReturn;
-    int status;
+    int status, statusReturn;
     char *TOSreturn, *PCreturn;
     if((tosFunc-1) < 0)
         return -8;
@@ -61,10 +61,14 @@ int return_value(){             // retorna o valor de PC
     strcpy(TOSreturn, func[tosFunc].TOSreturn);
     strcpy(PCreturn, func[tosFunc].PCreturn);
     tosFunc--;
-    dataReturn = read_stack();
-
+    if(atoi(TOSreturn) >= verTos())
+        statusReturn = -1;          // não retorna dados
+    else{
+        dataReturn = read_stack();
+        statusReturn = 0;           // retorna dados
+    }
     changeTos(bin_to_dec(TOSreturn));     // faz a pilha retornar seu TOS
-    if(dataReturn >= 0) // retorna dados
+    if(statusReturn >= 0) // retorna dados
         status = add_stack(dec_to_bin(dataReturn, DATA_WIDTH));     // so retorna dados se houver
     return bin_to_dec(PCreturn);        // retorna novo valor de PC
 }

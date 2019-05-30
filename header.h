@@ -7,7 +7,7 @@
 #include "input_code.c"
 #include "checks.c"
 #include "help.c"
-#include "sim_header.h"z
+#include "sim_header.h"
 
 
 #define MEMORY_SIZE 4096

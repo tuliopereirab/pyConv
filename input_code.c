@@ -22,6 +22,8 @@ int check_comando(char comando[]);
 int check_tos(char comando[]);
 int check_popJump(char comando[]);
 void inicio_geradorMem_mif(char nomeArq[], int higherLine);
+int check_simulador();
+
 
 void aguardar_entrada(int arqType){
     int statusQuit=0, valor_retorno, line=0, newLine, lineTemp, higherLine=0;

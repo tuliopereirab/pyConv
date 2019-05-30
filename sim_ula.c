@@ -53,7 +53,7 @@ int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div, 4=and, 5=or, 6=xor
         default:
             add_stack(dec_to_bin(result=op1+op2, DATA_WIDTH));
     }
-    if(((result>pow(2,DATA_WIDTH)) || (result<0)) && (sel < 4))
+    if(((result>=pow(2,DATA_WIDTH)) || (result<0)) && (sel < 4))
         return -10;
     else
         return 0;

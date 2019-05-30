@@ -178,8 +178,12 @@ int jump_forward(char arg[]){
 int binary(int sel){
     int stat;
     if((stat = ula_arith(sel)) < 0){
-        print_error(stat);
-        return -20;     // retorna que ocorreu um warning
+        print_error(stat); // retorna que ocorreu um warning
+        if(stat == -10){
+            pc++;
+            return pc;
+        }else
+            return stat;
     }else{
         pc++;
         return pc;

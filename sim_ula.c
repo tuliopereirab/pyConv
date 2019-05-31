@@ -24,8 +24,11 @@ int verTos();
 
 int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div, 4=and, 5=or, 6=xor, 7=not
     int op1, op2, result;
-    if(verTos() <= 1)
+    if((verTos() <= 1) && (sel != 7))
         return -9;
+    else if((verTos() == 0) && (sel == 7))
+        return -4;
+
     op2 = read_stack();
     if(sel != 7)            // indica que não é not
         op1 = read_stack();

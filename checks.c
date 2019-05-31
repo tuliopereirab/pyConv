@@ -82,6 +82,8 @@ int check_argumento(char comando[]){
         return 0;  // indica que não tem erro, já que não precisa de argumento
     else if((strcmp(comando, "BINARY_XOR")) == 0)
         return 0;  // indica que não tem erro, já que não precisa de argumento
+    else if((strcmp(comando, "UNARY_NOT")) == 0)
+        return 0;  // indica que não tem erro, já que não precisa de argumento
     else if((strcmp(comando, "INPLACE_ADD")) == 0)
         return 0;  // indica que não tem erro, já que não precisa de argumento
     else if((strcmp(comando, "RETURN_VALUE")) == 0)
@@ -112,6 +114,8 @@ int check_comando(char comando[]){
     else if((strcmp(comando, "BINARY_OR")) == 0)
         return 1;
     else if((strcmp(comando, "BINARY_XOR")) == 0)
+        return 1;
+    else if((strcmp(comando, "UNARY_NOT")) == 0)
         return 1;
     else if((strcmp(comando, "INPLACE_ADD")) == 0)
         return 1;
@@ -156,135 +160,143 @@ int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
         return 0;
     }
     else if((strcmp(comando, "RETURN_VALUE")) == 0)
-        if(tos_func == 0)
-            return -6;
-        else{
-            tos_func--;
-            return 0;
-        }
+            if(tos_func == 0)
+                return -6;
+            else{
+                tos_func--;
+                return 0;
+            }
     else if(tos_func == 0){
         if((strcmp(comando, "STORE_FAST")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;
-            return 0;
-        }
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;
+                return 0;
+            }
         else if((strcmp(comando, "BINARY_ADD")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
         else if((strcmp(comando, "BINARY_SUBTRACT")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
         else if((strcmp(comando, "BINARY_MULTIPLY")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }else if((strcmp(comando, "BINARY_AND")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }else if((strcmp(comando, "BINARY_OR")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }else if((strcmp(comando, "BINARY_XOR")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
-        // else if((strcmp(comando, "INPLACE_ADD")) == 0)      // não decrementa e pega apenas um valor para somar 1 a ele mesmo
-        //     if(tos_index == 0)
-        //         return -5;
-        //     else
-        //         return 0;
-        else if((strcmp(comando, "COMPARE_OP")) == 0)
-        if(tos_index <= 1)
-        return -5;
-        else{
-            tos_index = tos_index-2;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_AND")) == 0)
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_OR")) == 0)
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_XOR")) == 0)
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "UNARY_NOT")) == 0){
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        }else if((strcmp(comando, "COMPARE_OP")) == 0)
+            if(tos_index <= 1)
+                return -5;
+            else{
+                tos_index = tos_index-2;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
     }else{
         if((strcmp(comando, "BINARY_ADD")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
+            if(tos_index == 0)
+            return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
         else if((strcmp(comando, "BINARY_SUBTRACT")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
         else if((strcmp(comando, "BINARY_MULTIPLY")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_AND")) == 0)
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_OR")) == 0)
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "BINARY_XOR")) == 0)
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
+        else if((strcmp(comando, "UNARY_NOT")) == 0){
+            tos_index--;
             return 0;
-        }else if((strcmp(comando, "BINARY_DIVIDE")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }else if((strcmp(comando, "BINARY_AND")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }else if((strcmp(comando, "BINARY_OR")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }else if((strcmp(comando, "BINARY_XOR")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
-        // else if((strcmp(comando, "INPLACE_ADD")) == 0)      // não decrementa e pega apenas um valor para somar 1 a ele mesmo
-        //     if(tos_index == 0)
-        //         return -5;
-        //     else
-        //         return 0;
-        else if((strcmp(comando, "COMPARE_OP")) == 0)
-        if(tos_index == 0)
-        return -5;
-        else{
-            tos_index = tos_index-2;        // ele decrementa 2 e incrementa 1 (resultado)
-            return 0;
-        }
+        }else if((strcmp(comando, "COMPARE_OP")) == 0)
+            if(tos_index == 0)
+                return -5;
+            else{
+                tos_index = tos_index-2;        // ele decrementa 2 e incrementa 1 (resultado)
+                return 0;
+            }
     }
 }
 

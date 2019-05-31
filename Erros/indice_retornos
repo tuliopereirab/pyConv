@@ -27,6 +27,7 @@ sim_function:
 
 sim_ula:
     ula_arith:
+        -4: com instrução UNARY_NOT, comando torna o TOS negativo
         -9: pilha não suporta duas leituras, 'TOS' ficará negativo
         -10: overflow de resultado
         -9: pilha não suporta duas leituras, 'TOS' ficará negativo

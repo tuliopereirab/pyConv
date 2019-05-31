@@ -227,7 +227,6 @@ int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
             if(tos_index == 0)
                 return -5;
             else{
-                tos_index--;        // ele decrementa 2 e incrementa 1 (resultado)
                 return 0;
             }
         }else if((strcmp(comando, "COMPARE_OP")) == 0)
@@ -288,7 +287,6 @@ int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
                 return 0;
             }
         else if((strcmp(comando, "UNARY_NOT")) == 0){
-            tos_index--;
             return 0;
         }else if((strcmp(comando, "COMPARE_OP")) == 0)
             if(tos_index == 0)

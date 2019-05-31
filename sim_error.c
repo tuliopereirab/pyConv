@@ -50,7 +50,7 @@ void print_error(int code){
             printf("error %i: Resultado da comparação inválido.\n\tExecute uma comparação antes de um desvio condicional.\n", code);
             break;
         case -14:
-            printf("error %i: Valor do endereço fora do invervalo esperado (0 a %.0lf).\n", code, pow(2, ADDR_WIDTH)-1);
+            printf("error %i: Valor do endereço fora do intervalo esperado (0 a %.0lf).\n", code, pow(2, ADDR_WIDTH)-1);
             break;
         case -15:
             printf("error %i: Soma entre PC atual e argumento da instrução ultrapassam valor máximo de %.0lf.\n", code, pow(2, ADDR_WIDTH)-1);

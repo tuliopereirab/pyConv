@@ -82,6 +82,8 @@ int simulator(char comando[], char argumento[]){    // op binary: 0:add; 1:sub; 
         return binary(5);
     else if((strcmp(comando, "BINARY_XOR")) == 0)
         return binary(6);
+    else if((strcmp(comando, "UNARY_NOT")) == 0)
+        return binary(7);       // not
     else if((strcmp(comando, "COMPARE_OP")) == 0)
         return compare_op(argumento);
     else if((strcmp(comando, "CALL_FUNCTION")) == 0)

@@ -51,7 +51,7 @@ int ula_arith(int sel){ // 0=add, 1=sub, 2=mult, 3=div, 4=and, 5=or, 6=xor, 7=no
         case 6:
             add_stack(bitwise_op(dec_to_bin(op2, DATA_WIDTH), dec_to_bin(op1, DATA_WIDTH), DATA_WIDTH, sel));
             break;
-        case 7:
+        case 7:     // not
             add_stack(bitwise_not(dec_to_bin(op2, DATA_WIDTH), DATA_WIDTH));
             break;
         default:

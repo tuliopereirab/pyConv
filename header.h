@@ -30,6 +30,7 @@ void printar_matriz();
 int adicionar_valor(char palavra[], int posicao, char cmd[], char arg[], int status);
 void retornar_matriz();
 void inicio_geradorMem_mif(char nomeArq[], int higherLine);
+void arqTxt(char nomeArq[]);
 // ------------------------------
 
 

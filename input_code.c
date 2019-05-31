@@ -23,6 +23,7 @@ int check_tos(char comando[]);
 int check_popJump(char comando[]);
 void inicio_geradorMem_mif(char nomeArq[], int higherLine);
 int check_simulador();
+void arqTxt(char nomeArq[]);
 
 
 void aguardar_entrada(int arqType){
@@ -51,13 +52,16 @@ void aguardar_entrada(int arqType){
                 __fpurge(stdin);
                 if(arqType == 1){            // gerador de arquivo .mif
                     inicio_geradorMem_mif(arqName, higherLine);
+                    arqTxt(arqName);
                     exit(EXIT_SUCCESS);
                 }else if(arqType == 0){
                     inicio_geradorMem(arqName);
+                    arqTxt(arqName);
                     exit(EXIT_SUCCESS);
                 }else{
                     inicio_geradorMem(arqName);
                     inicio_geradorMem_mif(arqName, higherLine);
+                    arqTxt(arqName);
                     exit(EXIT_SUCCESS);
                 }
             }

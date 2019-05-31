@@ -124,7 +124,8 @@ void inicio_geradorMem(char nomeArq[]){    // deve também receber a matriz da s
         system("EXIT_FAILURE");
     status = escrita_arqMem();
     fclose(arq);
-    arqTxt(nomeArq);
+    printf("Arquivo .mem criado.\n");
+    //arqTxt(nomeArq);
     //return status;
 }
 
@@ -175,7 +176,8 @@ void inicio_geradorMem_mif(char nomeArq[], int higherLine){
         system("EXIT_FAILURE");
     status = escrita_arqMem_mif(higherLine);
     fclose(arq);
-    arqTxt(nomeArq);
+    printf("Arquivo .mif criado.\n");
+    //arqTxt(nomeArq);
     //return status;
 }
 
@@ -266,4 +268,5 @@ void arqTxt(char nomeArq[]){
         }
     }
     fclose(arqTxt);
+    printf("Arquivo texto criado.\n");
 }

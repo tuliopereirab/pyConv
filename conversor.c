@@ -8,6 +8,8 @@ char *verCodigo_comando(char comando[]);
 char* verComparacao(int val);
 
 
+int analise_argumento(char comando[], char argumento[], int line);
+
 char *decimal_to_binary_addr(int n);
 char *decimal_to_binary_code(int n);
 char *busca_variavel(char chave[]);
@@ -69,7 +71,10 @@ int inicio_conversor(int posMemoria, char comando[], char argumento[]){
     char *arg_binary;
     char* comandoCompleto;     // string que será salva no arquivo .mem
     if((strcmp(comando, "LOAD_CONST")) == 0){
-        arg_binary = decimal_to_binary_code(atoi(argumento));   // converte o valor decimal pra binario
+        if(analise_argumento(comando, argumento, posMemoria) == 1)
+            arg_binary = decimal_to_binary_code((int)argumento[0]); // converte letra para ASCII
+        else
+            arg_binary = decimal_to_binary_code(atoi(argumento));   // converte o valor decimal pra binario
         comandoCompleto = montar_comando(codigoComando, arg_binary, 1);
         status = adicionar_valor(comandoCompleto, posMemoria, comando, argumento, 0);
     }else if((strcmp(comando, "LOAD_FAST")) == 0){

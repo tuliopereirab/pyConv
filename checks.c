@@ -63,6 +63,12 @@ void error_message(int id){
             break;
         case -12:
             printf("Para realizar um 'POP_JUMP_IF_', é preciso que tenha sido feita uma comparação ('COMPARE_OP') anteriormente.\n");
+            break;
+        case -13:
+            printf("O argumento de LOAD_CONST deve conter apenas números OU apenas uma letra.\n");
+            break;
+        default:
+            printf("Erro desconhecido.\n");
     }
 }
 
@@ -299,13 +305,19 @@ int check_tos(char comando[]){                  // 0 -> está ok || -1 -> erro
 }
 
 int analise_argumento(char comando[], char argumento[], int line){
-    int arg;
-    if((strcmp(comando, "LOAD_CONST")) == 0)
+    int arg, i, tam = strlen(argumento);
+    if((strcmp(comando, "LOAD_CONST")) == 0){
+        for(i=0; i<tam; i++){
+            if((isdigit(argumento[i]) == 0) && (tam > 1))
+                return -13;      // existe um valor não numérico e o argumento possui outros caracteres
+            else if((isdigit(argumento[i]) == 0) && (tam == 1))
+                return 1;      // existe apenas UM valor não numérico
+        }
         if((arg=atoi(argumento)) > DATA_MAX_NUM)
             return -7;
         else
             return 0;
-    else if((strcmp(comando, "LOAD_FAST")) == 0)
+    }else if((strcmp(comando, "LOAD_FAST")) == 0)
         if((arg=atoi(argumento)) >= N_POSICOES_MEM)
             return -8;
         else

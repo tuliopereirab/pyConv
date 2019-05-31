@@ -51,10 +51,12 @@ char *dec_to_bin(int n, int tam){       // copiado de https://www.programmingsim
 int check_number(char arg[]){
     int i, tam = strlen(arg);
     for(i=0; i<tam; i++){
-        if(isdigit(arg[i]) == 0)
-            return -1;      // não é um número
+        if((isdigit(arg[i]) == 0) && (tam > 1))
+            return -1;      // existe um valor não numérico e o argumento possui outros caracteres
+        else if((isdigit(arg[i]) == 0) && (tam == 1))
+            return 1;      // existe apenas UM valor não numérico
     }
-    return 0;
+    return 0;   // argumento composto apenas por números
 }
 
 char *bitwise_op(char op1[], char op2[], int data_width, int sel){

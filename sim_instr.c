@@ -54,13 +54,17 @@ int verifica_variavel(char variavel[]);
 #define ADDR_WIDTH 12
 
 
-int load_const(char arg[]){
-    int argumento, status;
-    if(check_number(arg) != 0){
+int load_const(char arg[]){         // retorna: -1 para erro (ex: "AA" ou "1a")
+    int argumento, status;          // retorna: 0 para somente números
+    if(status = check_number(arg) < 0){    // retorna: 1 para apenas uma letra ("A")
         print_error(-1);
         return -12;
-    }
-    if(((argumento = atoi(arg)) < pow(2, DATA_WIDTH)) && (argumento >= 0))
+    }else if(status == 1)
+        argumento = (int)arg[0];
+    else
+        argumento = atoi(arg);
+
+    if((argumento < pow(2, DATA_WIDTH)) && (argumento >= 0))
         status = add_stack(dec_to_bin(argumento, DATA_WIDTH));
     else
         status = -2;

@@ -10,6 +10,7 @@
 #define DATA_WIDTH 8
 #define DATA_MAX_NUM 255
 
+int isdigit(int c);
 
 int check_tos(char comando[]);
 void error_message(int id);

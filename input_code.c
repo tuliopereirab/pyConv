@@ -7,7 +7,10 @@
 
 int gerencia_entrada(int posMemoria, char entrada[]);
 void aguardar_entrada(int arqType);
-
+// ------------------------------
+void  __fpurge(FILE *stream);   // tentar corrigir warning
+char *gets(char *s);
+// ------------------------------
 // externas
 void help_init();
 char *softwareCode(char cmd[]);
@@ -48,7 +51,7 @@ void aguardar_entrada(int arqType){
                 }else
                     printf("Algoritmo passou pelo teste do simulador.\n");
                 printf("Nome do arquivo: ");
-                scanf("%s", &arqName);
+                scanf("%s", arqName);
                 __fpurge(stdin);
                 if(arqType == 1){            // gerador de arquivo .mif
                     inicio_geradorMem_mif(arqName, higherLine);
@@ -75,7 +78,7 @@ void aguardar_entrada(int arqType){
                 printf("Valor superior ao número máximo de tamanho de memória (%i).\n", MEMORY_SIZE);
         }else if(((strcmp(entrada, "help")) == 0) || ((strcmp(entrada, "HELP")) == 0) || ((strcmp(entrada, "Help")) == 0)){
             printf("Comando: ");
-            scanf("%s", &commandHelp);
+            scanf("%s", commandHelp);
             __fpurge(stdin);
             help_init(commandHelp);
             newLine = line;
